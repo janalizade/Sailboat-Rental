@@ -1,8 +1,10 @@
 ﻿using Sailboat_Rental.Models;
 using MongoDB.Driver;
+
 namespace SailBoat_Rental.Services
+
 {
-    public class CategoryService:ICategoryService
+    public class CategoryService :ICategoryService
     {
         private readonly IMongoCollection<Category> _categories;
         public CategoryService(IStoreSailboatDatabaseSetting settings,IMongoClient mongoClient)
@@ -11,27 +13,35 @@ namespace SailBoat_Rental.Services
             var database=mongoClient.GetDatabase(settings.DatabaseName);
             _categories = database.GetCollection<Category>(settings.SailBoatCollectionName);
         }
-        public List<Category> GetCategories()
-        {
-            return _categories.Find(category=>true).ToList();
-        }
-        Category GetCategoryById(string id)
-        {
-            return _categories.Find(category => category.CategoryId==id).FirstOrDefault();
-        }
-    
+
         public Category Create(Category category)
         {
-            _categories.InsertOne(category);
-            return category;
+            throw new NotImplementedException();
         }
-        void Update(string id,Category category)
+
+        public void Delete(int id)
         {
-            _categories.ReplaceOne(category => category.CategoryId == id,category);
+            throw new NotImplementedException();
         }
-        void Remove(string id)
+
+        public List<Category> GetCategories()
         {
-            _categories.DeleteOne(category => category.CategoryId == id);
+            throw new NotImplementedException();
+        }
+
+        public Category GetCategory(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Category GetCategoryById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Category Update(string id, Category category)
+        {
+            throw new NotImplementedException();
         }
     }
 }

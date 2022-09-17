@@ -7,7 +7,7 @@ namespace SailBoat_Rental.Services
         Category GetCategory(string id);       
         Category GetCategoryById(string id);   
         Category Create(Category category);
-        void Update(Category category);
+        Category Update(string id, Category category);
         void Delete(int id);
     }
 }
