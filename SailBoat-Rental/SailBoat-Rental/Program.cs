@@ -1,5 +1,5 @@
 using Sailboat_Rental.Models;
-
+using SailBoat_Rental.Services;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 
@@ -11,6 +11,7 @@ builder.Services.AddSingleton<StoreSailboatDatabaseSetting>(sp=>sp.GetRequiredSe
 builder.Services.AddSingleton<IMongoClient>(s =>
 
 new MongoClient(builder.Configuration.GetValue<string>("StoreSailboatDatabaseSetting:ConnectionString")));
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
