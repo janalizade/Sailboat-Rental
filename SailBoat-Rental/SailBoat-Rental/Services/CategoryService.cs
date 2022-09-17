@@ -1,47 +1,39 @@
 ﻿using Sailboat_Rental.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace SailBoat_Rental.Services
 
 {
-    public class CategoryService :ICategoryService
+    public class CategoryService 
     {
         private readonly IMongoCollection<Category> _categories;
-        public CategoryService(IStoreSailboatDatabaseSetting settings,IMongoClient mongoClient)
-        { 
-            
-            var database=mongoClient.GetDatabase(settings.DatabaseName);
-            _categories = database.GetCollection<Category>(settings.SailBoatCollectionName);
-        }
+        //  public CategoryService(IStoreSailboatDatabaseSetting settings,IMongoClient mongoClient)
+        //  { 
 
+        //      var database=mongoClient.GetDatabase(settings.DatabaseName);
+        //      _categories = database.GetCollection<Category>(settings.CollectionName);
+        //  }
+        public CategoryService(IOptions<StoreSailboatDatabaseSetting> options) {
+            var mongoClient = new MongoClient(options.Value.ConnectionString);
+            _categories = mongoClient.GetDatabase(options.Value.DatabaseName).GetCollection<Category>(options.Value.CollectionName);
+      //  { 
+
+        //      var database=mongoClient.GetDatabase(settings.DatabaseName);
+        //      _categories = database.GetCollection<Category>(settings.CollectionName);
+         }
         public Category Create(Category category)
         {
-            throw new NotImplementedException();
+           _categories.InsertOne(category);
+            return category;
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+     
         public List<Category> GetCategories()
         {
-            throw new NotImplementedException();
+             return _categories.Find(category=>true).ToList();
         }
 
-        public Category GetCategory(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Category GetCategoryById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Category Update(string id, Category category)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
