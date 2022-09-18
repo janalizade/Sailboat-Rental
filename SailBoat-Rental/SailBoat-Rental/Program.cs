@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.Configure<StoreSailboatDatabaseSetting>(builder.Configuration.GetSection("StoreSailboatDatabaseSetting"));
 builder.Services.AddSingleton<CategoryService>();
+//builder.Services.Configure<StoreSailboatDatabaseSetting>(builder.Configuration.GetSection("StoreSailboatDatabaseSetting1"));
+builder.Services.AddSingleton<LessorServices>();
 //builder.Services.Configure<StoreSailboatDatabaseSetting>(builder.Configuration.GetSection(nameof(StoreSailboatDatabaseSetting)));
 //builder.Services.AddSingleton<StoreSailboatDatabaseSetting>(sp=>sp.GetRequiredService<IOptions<StoreSailboatDatabaseSetting>>().Value);
 //builder.Services.AddSingleton<IMongoClient>(s =>

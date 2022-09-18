@@ -2,8 +2,6 @@
 using Sailboat_Rental.Models;
 using SailBoat_Rental.Services;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SailBoat_Rental.Controllers
 {
     [Route("api/[controller]")]

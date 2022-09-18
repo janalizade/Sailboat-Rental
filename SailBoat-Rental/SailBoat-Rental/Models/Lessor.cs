@@ -4,6 +4,7 @@ namespace Sailboat_Rental.Models
 {
     public class Lessor
     {
+       
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }=String.Empty;
