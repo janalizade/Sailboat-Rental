@@ -26,8 +26,10 @@ namespace SailBoat_Rental.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] Category category)
         {
+            categoryService.Create(category);
+            return CreatedAtAction(nameof(Get), new { id = category.CategoryId }, category);
         }
 
 
