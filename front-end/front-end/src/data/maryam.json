@@ -1,0 +1,169 @@
+{
+  "categories": [{
+    "providerCategoryId": "8f30832aaa35480bbd88d683be480769",
+    "providerCategoryTitle": "Transport",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 0,
+      "debtSum": 46800
+    }, {
+      "month": "2022-03",
+      "creditSum": 0,
+      "debtSum": 46800
+    }, {
+      "month": "2022-04",
+      "creditSum": 0,
+      "debtSum": 4290000
+    }]
+  }, {
+    "providerCategoryId": "1f9ae907ecaf49939cb8e960c74710ea",
+    "providerCategoryTitle": "Reimbursements",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 0,
+      "debtSum": 0
+    }, {
+      "month": "2022-03",
+      "creditSum": 0,
+      "debtSum": 0
+    }, {
+      "month": "2022-04",
+      "creditSum": 102250,
+      "debtSum": 0
+    }]
+  }, {
+    "providerCategoryId": "3574aa8a22d4480983b9d4c0451c2776",
+    "providerCategoryTitle": "Food & Drinks",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 0,
+      "debtSum": 124231
+    }, {
+      "month": "2022-03",
+      "creditSum": 0,
+      "debtSum": 215410
+    }, {
+      "month": "2022-04",
+      "creditSum": 0,
+      "debtSum": 750000
+    }]
+  }, {
+    "providerCategoryId": "f97ed636f1c54f1f91b5c648f9329155",
+    "providerCategoryTitle": "Household & Services",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 0,
+      "debtSum": 32500
+    }, {
+      "month": "2022-03",
+      "creditSum": 0,
+      "debtSum": 17500
+    }, {
+      "month": "2022-04",
+      "creditSum": 0,
+      "debtSum": 17500
+    }]
+  }, {
+    "providerCategoryId": "83f5dccf39ca43a8a0d4413be23464c6",
+    "providerCategoryTitle": "Salary",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 2247700,
+      "debtSum": 0
+    }, {
+      "month": "2022-03",
+      "creditSum": 2247700,
+      "debtSum": 0
+    }, {
+      "month": "2022-04",
+      "creditSum": 2247700,
+      "debtSum": 0
+    }]
+  }, {
+    "providerCategoryId": "b3963cfe6bf54c06b22eaa44e0a6cf3f",
+    "providerCategoryTitle": "Other",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 0,
+      "debtSum": 12500
+    }, {
+      "month": "2022-03",
+      "creditSum": 0,
+      "debtSum": 2500
+    }, {
+      "month": "2022-04",
+      "creditSum": 0,
+      "debtSum": 1250
+    }]
+  }, {
+    "providerCategoryId": "9faddd4c806b48a29301891f6a310c78",
+    "providerCategoryTitle": "Shopping",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 0,
+      "debtSum": 5500
+    }, {
+      "month": "2022-03",
+      "creditSum": 0,
+      "debtSum": 40300
+    }, {
+      "month": "2022-04",
+      "creditSum": 0,
+      "debtSum": 0
+    }]
+  }, {
+    "providerCategoryId": "f95f30da395348c488261e990e8c0e54",
+    "providerCategoryTitle": "Leisure",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 0,
+      "debtSum": 0
+    }, {
+      "month": "2022-03",
+      "creditSum": 0,
+      "debtSum": 10500
+    }, {
+      "month": "2022-04",
+      "creditSum": 0,
+      "debtSum": 0
+    }]
+  }, {
+    "providerCategoryId": "2a399e962e3b4ac49b61ade0f8380840",
+    "providerCategoryTitle": "Health & Beauty",
+    "transactions": [{
+      "month": "2022-02",
+      "creditSum": 0,
+      "debtSum": 38200
+    }, {
+      "month": "2022-03",
+      "creditSum": 0,
+      "debtSum": 0
+    }, {
+      "month": "2022-04",
+      "creditSum": 0,
+      "debtSum": 0
+    }]
+  }],
+  "account": {
+    "incomes": [{
+      "month": "2022-02",
+      "value": 2247700
+    }, {
+      "month": "2022-03",
+      "value": 2247700
+    }, {
+      "month": "2022-04",
+      "value": 2247700
+    }],
+    "minBalances": [{
+      "month": "2022-02",
+      "value": 6095983
+    }, {
+      "month": "2022-03",
+      "value": 8001473
+    }, {
+      "month": "2022-04",
+      "value": 10149073
+    }]
+  }
+}

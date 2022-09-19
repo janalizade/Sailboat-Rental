@@ -14,6 +14,9 @@ namespace Sailboat_Rental.Models
         [BsonElement("categoryname")]
         [Required(ErrorMessage = "Name Is Required")]
         public string CategoryName { get; set; } = string.Empty;
+
+        [BsonElement("description")]
+        public string Description { get; set; } = string.Empty;
     }
 
   

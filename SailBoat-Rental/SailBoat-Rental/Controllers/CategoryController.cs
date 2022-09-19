@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Sailboat_Rental.Models;
 using SailBoat_Rental.Services;
 
@@ -6,6 +7,7 @@ namespace SailBoat_Rental.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class CategoryController : ControllerBase
     {
         private readonly CategoryService categoryService;
