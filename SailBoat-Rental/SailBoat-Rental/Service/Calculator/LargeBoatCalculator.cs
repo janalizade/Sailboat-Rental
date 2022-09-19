@@ -1,4 +1,4 @@
-﻿namespace SailBoat_Rental.Services.Calculator
+﻿namespace SailBoat_Rental.Service.Calculator
 {
 
     //Boat >= 40: feet basic fee* 1.5 + hourly rate* 1.4 * number hours

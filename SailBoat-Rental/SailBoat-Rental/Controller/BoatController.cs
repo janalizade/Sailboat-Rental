@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sailboat_Rental.Model;
+using SailBoat_Rental.Service;
 
-
-using Microsoft.AspNetCore.Mvc;
-using Sailboat_Rental.Models;
-using SailBoat_Rental.Services;
-
-namespace SailBoat_Rental.Controllers
+namespace SailBoat_Rental.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,7 +17,7 @@ namespace SailBoat_Rental.Controllers
         [HttpGet]
         public ActionResult<List<Boat>> Get()
         {
-            return boatService.GetBoats();
+            return this.boatService.GetBoats();
         }
 
         // GET api/<BoatController>/5
@@ -34,7 +31,7 @@ namespace SailBoat_Rental.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] Boat boat)
         {
-            boatService.Create(boat);
+            this.boatService.Create(boat);
             return CreatedAtAction(nameof(Get), new { id = boat.Id }, boat);
         }
     }

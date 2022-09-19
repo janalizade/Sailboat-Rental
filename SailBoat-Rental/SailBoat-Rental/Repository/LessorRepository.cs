@@ -1,14 +1,13 @@
-﻿using Sailboat_Rental.Models;
+﻿using Sailboat_Rental.Model;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace SailBoat_Rental.Services
+namespace SailBoat_Rental.Repository
 {
-   
-    public class LessorServices
+    public class LessorRepository
     {
         private readonly IMongoCollection<Lessor> _lessors;
-        public LessorServices(IOptions<StoreSailboatDatabaseSetting> options)
+        public LessorRepository(IOptions<StoreSailboatDatabaseSetting> options)
         {
             var mongoClient = new MongoClient(options.Value.ConnectionString);
             _lessors = mongoClient.GetDatabase(options.Value.DatabaseName).GetCollection<Lessor>(options.Value.LessorCollectionName);
@@ -31,5 +30,5 @@ namespace SailBoat_Rental.Services
             return _lessors.Find(lessor => true).ToList();
         }
     }
-   
+
 }

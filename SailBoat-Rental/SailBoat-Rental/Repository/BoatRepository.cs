@@ -1,14 +1,13 @@
-﻿using Sailboat_Rental.Models;
+﻿using Sailboat_Rental.Model;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace SailBoat_Rental.Services
+namespace SailBoat_Rental.Repository
 {
-
-    public class BoatService
+    public class BoatRepository
     {
         private readonly IMongoCollection<Boat> _boats;
-        public BoatService(IOptions<StoreSailboatDatabaseSetting> options)
+        public BoatRepository(IOptions<StoreSailboatDatabaseSetting> options)
         {
             var mongoClient = new MongoClient(options.Value.ConnectionString);
             _boats = mongoClient.GetDatabase(options.Value.DatabaseName).GetCollection<Boat>(options.Value.BoatCollectionName);

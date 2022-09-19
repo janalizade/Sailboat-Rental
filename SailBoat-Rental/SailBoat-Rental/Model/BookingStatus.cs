@@ -1,4 +1,4 @@
-﻿namespace SailBoat_Rental.Models
+﻿namespace SailBoat_Rental.Model
 {
     public enum BookingStatus
     {

@@ -1,4 +1,4 @@
-﻿using SailBoat_Rental.Models;
+﻿using SailBoat_Rental.Model;
 
 namespace SailBoat_Rental.Repository
 {

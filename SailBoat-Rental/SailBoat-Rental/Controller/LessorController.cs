@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sailboat_Rental.Models;
-using SailBoat_Rental.Services;
+using Sailboat_Rental.Model;
+using SailBoat_Rental.Service;
 
 namespace SailBoat_Rental.Controllers
 {
@@ -8,16 +8,16 @@ namespace SailBoat_Rental.Controllers
     [ApiController]
     public class LessorController : ControllerBase
     {
-        private readonly LessorServices lessorServices;
-        public LessorController(LessorServices lessorServices)
+        private readonly LessorService lessorService;
+        public LessorController(LessorService lessorService)
         {
-            this.lessorServices = lessorServices;
+            this.lessorService = lessorService;
         }
         // GET: api/<LessorController>
         [HttpGet]
         public ActionResult<List<Lessor>> Get()
         {
-            return lessorServices.GetLessors();
+            return lessorService.GetLessors();
         }
         
         // GET api/<LessorController>/5
@@ -31,7 +31,7 @@ namespace SailBoat_Rental.Controllers
         [HttpPost]
         public ActionResult Post( Lessor lessor)
         {
-            lessorServices.Create(lessor);
+            lessorService.Create(lessor);
             return CreatedAtAction(nameof(Get), new { id = lessor.Id }, lessor);
         }
 

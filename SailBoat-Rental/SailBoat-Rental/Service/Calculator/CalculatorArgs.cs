@@ -1,4 +1,4 @@
-﻿namespace SailBoat_Rental.Services.Calculator
+﻿namespace SailBoat_Rental.Service.Calculator
 {
 
     

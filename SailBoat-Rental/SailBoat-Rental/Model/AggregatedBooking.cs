@@ -1,6 +1,6 @@
-﻿using Sailboat_Rental.Models;
+﻿using Sailboat_Rental.Model;
 
-namespace SailBoat_Rental.Models
+namespace SailBoat_Rental.Model
 {
     public class AggregatedBooking: Booking
     {

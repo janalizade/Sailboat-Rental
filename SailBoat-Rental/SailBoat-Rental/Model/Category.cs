@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace Sailboat_Rental.Models
+namespace Sailboat_Rental.Model
 {
     public class Category
     {

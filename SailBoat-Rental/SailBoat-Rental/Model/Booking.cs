@@ -1,11 +1,11 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using SailBoat_Rental.Models;
-namespace Sailboat_Rental.Models
+using SailBoat_Rental.Model;
+namespace Sailboat_Rental.Model
 {
     public class Booking
     {
-        // Convert C# Datatype object to MongoDb Datatype object and vice versa 
+        
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = string.Empty;

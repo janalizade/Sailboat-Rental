@@ -1,4 +1,4 @@
-﻿namespace Sailboat_Rental.Models
+﻿namespace Sailboat_Rental.Model
 {
     public interface IStoreSailboatDatabaseSetting
     {

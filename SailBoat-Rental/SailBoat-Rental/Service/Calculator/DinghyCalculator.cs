@@ -1,4 +1,4 @@
-﻿namespace SailBoat_Rental.Services.Calculator
+﻿namespace SailBoat_Rental.Service.Calculator
 {
     //Dinghy: basic fee + hourly rate * number of hours
     public class DinghyCalculator : AbstractCalculator

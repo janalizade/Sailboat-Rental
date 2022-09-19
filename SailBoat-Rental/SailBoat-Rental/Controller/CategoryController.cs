@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Sailboat_Rental.Models;
-using SailBoat_Rental.Services;
+using Sailboat_Rental.Model;
+using SailBoat_Rental.Service;
 
 namespace SailBoat_Rental.Controllers
 {

@@ -1,8 +1,7 @@
-using Sailboat_Rental.Models;
-using SailBoat_Rental.Services;
+using Sailboat_Rental.Model;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
-
+using SailBoat_Rental.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,21 +12,21 @@ builder.Services.AddCors(option => {
 
 // Add services to the container.
 builder.Services.Configure<StoreSailboatDatabaseSetting>(builder.Configuration.GetSection("StoreSailboatDatabaseSetting"));
-builder.Services.AddSingleton<CategoryService>();
-;
-builder.Services.AddSingleton<LessorServices>();
-builder.Services.AddSingleton<BoatService>();
+
+builder.Services.AddSingleton<CategoryRepository>();
+builder.Services.AddSingleton<LessorRepository>();
+builder.Services.AddSingleton<BoatRepository>();
 
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyPolicy",
-        a =>
+        configurePolicy =>
         {
-
-            a.AllowAnyOrigin()
+            configurePolicy
+            .AllowAnyOrigin()
             .AllowAnyHeader()
-             .AllowAnyMethod();
+            .AllowAnyMethod();
         });
 });
 builder.Services.AddControllers();
