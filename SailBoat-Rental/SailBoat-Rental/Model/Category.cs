@@ -17,6 +17,9 @@ namespace Sailboat_Rental.Model
 
         [BsonElement("description")]
         public string Description { get; set; } = string.Empty;
+
+        [BsonElement("lessorId")]
+        public string LessorId { get; set; } = string.Empty;
     }
 
   
