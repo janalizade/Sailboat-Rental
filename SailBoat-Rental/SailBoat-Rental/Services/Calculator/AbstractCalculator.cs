@@ -5,9 +5,13 @@
         public abstract float Calculate(CalculatorArgs args);
 
 
-       protected TimeSpan getNumberOfHours(CalculatorArgs args)
+       protected int getNumberOfHours(CalculatorArgs args)
         {
-           return args.FromDate - args.ToDate;
+            TimeSpan diff = args.FromDate.Subtract(args.FromDate);
+            int finalDiff;
+            if (diff.Minutes > 0) { finalDiff = diff.Hours + 1; } else { finalDiff = diff.Hours; }
+                
+            return   finalDiff;
         }
 
     }

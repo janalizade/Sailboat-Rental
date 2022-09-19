@@ -10,11 +10,7 @@ namespace SailBoat_Rental.Services
         private readonly IMongoCollection<Category> _categories;
         public CategoryService(IOptions<StoreSailboatDatabaseSetting> options) {
             var mongoClient = new MongoClient(options.Value.ConnectionString);
-            _categories = mongoClient.GetDatabase(options.Value.DatabaseName).GetCollection<Category>(options.Value.CategoryCollectionName);
-
-
-            
-
+            _categories = mongoClient.GetDatabase(options.Value.DatabaseName).GetCollection<Category>(options.Value.CategoryCollectionName);        
 
             CreateIndex();
         }

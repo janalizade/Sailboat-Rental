@@ -10,12 +10,11 @@ namespace SailBoat_Rental.Services
         private BookingRepository bookingRepository;
         public float ReturnBoat(int BoatNumber)
         {
-            AggregatedBooking booking = bookingRepository.getBookingByNumber(BoatNumber);
-            float BasicFee = 0f;
-            float HourlyRate = 0f;
-            CalculatorArgs args = new CalculatorArgs(BasicFee, HourlyRate, booking.HandoverDate, DateTime.Now);
+            AggregatedBooking booking = bookingRepository.getBookingByNumber(BoatNumber); 
             CalculatorFactory calculatorFactory = new CalculatorFactory();
             AbstractCalculator calculator = calculatorFactory.GetCalculator(booking.CategoryName);
+
+            CalculatorArgs args = new CalculatorArgs(booking.BasicFee, booking.HourlyRate, booking.HandoverDate, DateTime.Now);
             return calculator.Calculate(args);
         }
 

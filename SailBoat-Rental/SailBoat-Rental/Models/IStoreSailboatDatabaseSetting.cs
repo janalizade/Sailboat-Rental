@@ -7,6 +7,9 @@
         string LessorCollectionName { get; set; }
 
         string CategoryCollectionName { get; set; }
+        string BoatCollectionName { get; set; }
+        string BookingCollectionName { get; set; }
+         
 
     }
 }
