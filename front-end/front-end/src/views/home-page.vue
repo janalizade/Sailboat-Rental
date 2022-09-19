@@ -16,19 +16,53 @@
       <v-icon>mdi-close</v-icon>
     </v-system-bar>
 
-    <v-toolbar
-      color="indigo"
-      dark
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title class="Appbar-title">Sailing Boat</v-toolbar-title>
+ <v-toolbar rounded tile>
+        <v-app-bar-nav-icon> </v-app-bar-nav-icon>
+      
+        <v-spacer></v-spacer>
 
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+       <v-toolbar-items>
+          
+            <v-menu :rounded="rounded" open-on-hover offset-y transition="slide-x-transition" bottom right>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn flat v-bind="attrs" v-on="on">
+                        Services
+                    </v-btn>
+                </template>
+                <v-list dense>
+                    <v-list-item v-for="(item, index) in services" :key="index" router :to="item.link">
+                       <v-list-item-action>
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-action>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+       
+        </v-toolbar-items>
+    
+        <v-menu open-on-hover transition="slide-x-transition" bottom right offset-y>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn icon v-bind="attrs" v-on="on">
+                    <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
+            </template>
+            <v-card class="mx-auto" max-width="300" tile>
+                <v-list dense>
+                    <v-subheader>THEMES</v-subheader>
+                    <v-list-item-group v-model="theme" color="primary">
+                        <v-list-item v-for="(item, i) in themes" :key="i" router :to="item.link">
+                            <v-list-item-action>
+                                <v-icon v-text="item.icon"></v-icon>
+                            </v-list-item-action>
+                            <v-list-item-action>
+                                <v-list-item-title v-text="item.text"></v-list-item-title>
+                            </v-list-item-action>
+                        </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+            </v-card>
+        </v-menu>
     </v-toolbar>
 
     <v-container fluid>
@@ -62,7 +96,9 @@
               <v-btn icon>
                 <v-icon>mdi-share-variant</v-icon>
               </v-btn>
+             
             </v-card-actions>
+            
           </v-card>
         </v-col>
       </v-row>
@@ -78,6 +114,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
   export default {
     data() {
      return {
+      show: false,
       titles:{},
       categories:[],
       cards: [
@@ -85,6 +122,35 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
         { title: '', src: oyster595, flex: 6 },
         { title: '', src: oyster432, flex: 6 },
       ],
+
+
+        theme: 1,
+        themes: [{
+                text: "Dark",
+                icon: "mdi-clock"
+            },
+            {
+                text: "Light",
+                icon: "mdi-account"
+            }
+        ],
+        mini: true,
+        services: [{
+                icon: "mdi-domain",
+                title: "Lessor",
+                link: "/mmrservices"
+            },
+            {
+                icon: "mdi-message-text",
+                title: "Category",
+                link: "/amrservices"
+            },
+            {
+                icon: "mdi-message-text",
+                title: "Boat",
+                link: "/amrservices"
+            }
+        ]
     }
     },
   
@@ -105,12 +171,8 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
        this.cards.forEach(it=>{
         it.title=titles[i];
         i++
-       })
-        
+       })       
           
-           
-       
-       
        })
 
     .catch(error => console.log('error', error));
