@@ -1,0 +1,88 @@
+<template>
+   <v-app >
+      <v-main>
+         <v-container fluid fill-height>
+            <v-layout align-center justify-center>
+               <v-flex xs12 sm8 md4>
+                  <v-card class="elevation-12">
+                     <v-toolbar dark color="primary">
+                        <v-toolbar-title>New Category </v-toolbar-title>
+                     </v-toolbar>
+                     <v-card-text>
+                     <form ref="form" @submit.prevent="createBoat()">
+                            <v-text-field
+                              v-model="number"
+                              name="number"
+                              label="boat Number"
+                              type="text"
+                              placeholder="Boat Number"
+                              required
+                           ></v-text-field>
+
+                            <v-text-field
+                              v-model="categoryId"
+                              name="categoryId"
+                              label="Category Id"
+                              type="text"
+                              placeholder="Category Id"
+                              required
+                           ></v-text-field>
+
+                           <v-text-field
+                              v-model="lessorId"
+                              name="lessorId"
+                              label="Lessor Id"
+                              type="text"
+                              placeholder="Lessor Id"
+                              required
+                           ></v-text-field>
+
+                           <v-btn type="submit" class="mt-4" color="primary" value="submit">Create</v-btn>
+                      </form>
+                     </v-card-text>
+                  </v-card>
+                
+               </v-flex>
+            </v-layout>
+         </v-container>
+      </v-main>
+   </v-app>
+</template>
+<script>
+export default {
+
+  data() {
+    return {
+       number: "",
+       categoryId: "",
+       lessorId: ""
+      
+    };
+  },
+  methods: {
+    createBoat() {
+    
+      var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+         number: this.number,
+         categoryid: this.categoryId,
+         lassorid: this.lessorId
+        });
+
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
+        console.log(requestOptions);
+        fetch("https://localhost:7253/api/Boat", requestOptions)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+            },
+        },
+        };
+</script>
