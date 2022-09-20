@@ -38,20 +38,7 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-              <v-menu :rounded="rounded" open-on-hover offset-y transition="slide-x-transition" bottom right>
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn flat v-bind="attrs" v-on="on">
-                        List
-                    </v-btn>
-                </template>
-                <v-list dense>
-                    <v-list-item v-for="(item, index) in services" :key="index" router :to="item.link">
-                       <v-list-item-action>
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                        </v-list-item-action>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
+           
        
         </v-toolbar-items>
     
@@ -79,6 +66,7 @@
           <v-card
             :color="item.color"
             dark
+            v-if="item.title"
           >
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
@@ -140,16 +128,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
                 title: "Lessor",
                 link: "/createLessor"
             },
-            {
-                icon: "mdi-message-text",
-                title: "Category",
-                link: "/createCategory"
-            },
-            {
-                icon: "mdi-message-text",
-                title: "Boat",
-                link: "/createBoat"
-            }
+            
         ],
         lessors:[],
         titles:[],
@@ -157,6 +136,10 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
         { title: '', address:'', src: SailBoat, color:'#1F7087' },
         { title: '', address:'',src: oyster595, color: '#952175'  },
         { title: '', address:'',src: oyster432,  color: '#1F7087'},
+        { title: '', address:'',src: oyster595,  color: '#952175'},
+        { title: '', address:'',src: SailBoat,  color: '#1F7087'},
+        { title: '', address:'',src: oyster432,  color: '#952175'},
+        { title: '', address:'',src: SailBoat,  color: '#1F7087'},
       ],
     
     }),
@@ -191,13 +174,10 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
         it.address=address[i];
         i++
        }) 
-            
-    
-       })
+    })
 
     .catch(error => console.log('error', error));
-      }
-               
+      }      
     },
     created() {
     this.getData();
