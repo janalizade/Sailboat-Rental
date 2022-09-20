@@ -38,6 +38,7 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
+             
        
         </v-toolbar-items>
     
@@ -63,7 +64,7 @@
                 </v-list>
             </v-card>
         </v-menu>
-    </v-toolbar>
+ </v-toolbar>
 
     <v-container fluid>
       <v-row dense>
@@ -138,7 +139,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
         services: [{
                 icon: "mdi-domain",
                 title: "Lessor",
-                link: "/mmrservices"
+                link: "/createLessor"
             },
             {
                 icon: "mdi-message-text",
