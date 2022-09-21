@@ -6,30 +6,43 @@
                <v-flex xs12 sm8 md4>
                   <v-card class="elevation-12">
                      <v-toolbar dark color="primary">
-                        <v-toolbar-title>New Lessor </v-toolbar-title>
+                        <v-toolbar-title>Booking     {{lessorName}}
+                     </v-toolbar-title>
                      </v-toolbar>
                      <v-card-text>
                      <form ref="form" @submit.prevent="createLessor()">
-                            <v-text-field
-                              v-model="lessorName"
-                              name="lessorName"
-                              label="Lessor Name"
-                              type="text"
-                              placeholder="Lessor Name"
+                           <v-space></v-space>
+                           <v-select
+                              v-model="category"
+                              :items="categoryTitles"
+                              :error-messages="errors"
+                              label="Select Category"
+                              data-vv-name="select"
                               required
-                           ></v-text-field>
+                           ></v-select>
                            
+                           <v-select
+                              v-model="boat"
+                              :items="boatTitles"
+                              :error-messages="errors"
+                              label="Select Boat"
+                              data-vv-name="select"
+                              required
+                           ></v-select>
                             <v-text-field
-                              v-model="address"
-                              name="address"
-                              label="Lessor Address"
+                              v-model="customerId"
+                              name="customerId"
+                              label="Customer personNumber"
                               type="text"
-                              placeholder="address"
+                              placeholder="Customer Id"
                               required
                            ></v-text-field>
-                           <div style= "display:flex">
-                           <v-btn type="submit" color="orange"    text  value="submit">Create</v-btn>
-                           <v-btn   color="orange"  text  @click="returnLessorPage()"> LESSOR PAGE </v-btn>               
+                           <v-space></v-space>
+                           <label for="meeting-time">Choose a time for booking boat:</label>
+                           <input type="datetime-local" id="meeting-time" name="meeting-time" >
+                           <div style= "margin-top:30px;display:flex">
+                           <v-btn type="submit" color="orange"    text  value="submit">Book</v-btn>
+                           <v-btn   color="orange"  text  @click="returnCategoryPage()"> Category PAGE </v-btn>               
                            </div>
                       </form>
                      </v-card-text>
@@ -42,40 +55,49 @@
    </v-app>
 </template>
 <script>
-export default {
 
+
+export default {
   data() {
     return {
+      categories: [ ],
+      boats:[],
+      boatTitles:[],
+      categoryTitles:[],
       lessorName: "",
       addresss: "",
     };
   },
   methods: {
-   returnLessorPage(){
-     this.$router.replace('/');
+   returnCategoryPage(){
+    this.$router.replace('/category');
+   }
    },
-    createLessor() {
+   created(){
+      
+      this.lessorName=localStorage.getItem('lessorName');
+      var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+      };
+
+      fetch("https://localhost:7253/api/Category/", requestOptions)
+      .then(response => response.json())
+      .then(result =>{
+        this.categories=result;       
+        this.categoryTitles =this.categories.map(it => it.categoryName);
+      })
+      .catch(error => console.log('error', error));
     
-      var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
-        "name": this.lessorName,
-        "address":this.address
-        });
-
-        var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-        };
-
-        fetch("https://localhost:7253/api/lessor", requestOptions)
-        .then(response => response.json())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-            },
-        },
-        };
+    fetch("https://localhost:7253/api/Boat/", requestOptions)
+      .then(response => response.json())
+      .then(result =>{
+        this.boats=result;       
+        this.boatTitles =this.boats.map(it => it.number);
+      })
+      .catch(error => console.log('error', error));
+    }
+   }
+   
 </script>

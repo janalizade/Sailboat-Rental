@@ -16,10 +16,12 @@ builder.Services.Configure<StoreSailboatDatabaseSetting>(builder.Configuration.G
 builder.Services.AddSingleton<LessorRepository>();
 builder.Services.AddSingleton<CategoryRepository>();
 builder.Services.AddSingleton<BoatRepository>();
+builder.Services.AddSingleton<BookingRepository>();
 
 builder.Services.AddSingleton<LessorService>();
 builder.Services.AddSingleton<CategoryService>();
 builder.Services.AddSingleton<BoatService>();
+builder.Services.AddSingleton<BookingService>();
 
 builder.Services.AddCors(options =>
 {

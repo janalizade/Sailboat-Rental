@@ -7,7 +7,7 @@ import CreateBoatPage from '../views/create-boat.vue';
 import CreateLessorPage from '../views/create-lessor.vue';
 import LessorPage from '../views/Lessor-page.vue';
 import CategoryPage from '../views/category-page';
-
+import BookingPage from '../views/booking-page';
 Vue.use(VueRouter);
 
 
@@ -15,6 +15,10 @@ const routes = [
   {
     path: '/',
     component: LessorPage
+  },
+  {
+    path:'/booking',
+    component:BookingPage
   },
   {
     path: '/category',

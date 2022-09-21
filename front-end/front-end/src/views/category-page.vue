@@ -87,17 +87,9 @@
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn icon>
+              <v-btn icon @click="bookingPage()" >
                 <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
+              </v-btn>          
              
             </v-card-actions>
             
@@ -158,6 +150,9 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     },
   
   methods: {
+   bookingPage(){
+     this.$router.replace('/booking');
+  },
     async getData() {
     var requestOptions = {
     method: 'GET',

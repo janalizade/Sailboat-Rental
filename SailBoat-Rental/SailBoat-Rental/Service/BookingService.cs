@@ -1,4 +1,5 @@
-﻿using SailBoat_Rental.Model;
+﻿using Sailboat_Rental.Model;
+using SailBoat_Rental.Model;
 using SailBoat_Rental.Repository;
 using SailBoat_Rental.Service.Calculator;
 
@@ -11,7 +12,17 @@ namespace SailBoat_Rental.Service
         public BookingService(BookingRepository bookingRepository)
         {
             this.bookingRepository = bookingRepository;
-        }   
+        }
+       
+        public Booking Create(Booking booking)
+        {
+            return this.bookingRepository.Create(booking);
+        }
+
+        public List<Booking> GetBookings()
+        {
+            return this.bookingRepository.GetBookings();
+        }
 
         public float ReturnBoat(int BoatNumber)
         {
@@ -22,6 +33,8 @@ namespace SailBoat_Rental.Service
             CalculatorArgs args = new CalculatorArgs(booking.BasicFee, booking.HourlyRate, booking.HandoverDate, DateTime.Now);
             return calculator.Calculate(args);
         }
+       
+
 
     }
 }
