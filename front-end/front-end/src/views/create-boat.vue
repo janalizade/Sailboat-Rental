@@ -6,7 +6,7 @@
                <v-flex xs12 sm8 md4>
                   <v-card class="elevation-12">
                      <v-toolbar dark color="primary">
-                        <v-toolbar-title>New Category </v-toolbar-title>
+                        <v-toolbar-title>New Boat </v-toolbar-title>
                      </v-toolbar>
                      <v-card-text>
                      <form ref="form" @submit.prevent="createBoat()">
@@ -37,7 +37,10 @@
                               required
                            ></v-text-field>
 
-                           <v-btn type="submit" class="mt-4" color="primary" value="submit">Create</v-btn>
+                            <div style= "display:flex">
+                              <v-btn type="submit" color="orange"    text  value="submit">Create</v-btn>
+                              <v-btn   color="orange"  text  @click="returnCategoryPage()"> Category PAGE </v-btn>               
+                           </div>
                       </form>
                      </v-card-text>
                   </v-card>
@@ -60,6 +63,9 @@ export default {
     };
   },
   methods: {
+    returnCategoryPage(){
+     this.$router.replace('/category');
+    },
     createBoat() {
     
       var myHeaders = new Headers();

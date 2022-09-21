@@ -18,16 +18,17 @@
 
 
  <v-toolbar rounded tile>
-        <v-app-bar-nav-icon> </v-app-bar-nav-icon>
+      
       
         <v-spacer></v-spacer>
 
        <v-toolbar-items>
-          
+        
+     
             <v-menu :rounded="rounded" open-on-hover offset-y transition="slide-x-transition" bottom right>
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn flat v-bind="attrs" v-on="on">
-                        Services
+                    <v-btn  style="font-size:12px" color="blue-grey" flat v-bind="attrs" v-on="on">
+                       {{lessorName}}    Services
                     </v-btn>
                 </template>
                 <v-list dense>
@@ -73,7 +74,7 @@
           :key="card.title"
           :cols="card.flex"
         >
-          <v-card>
+          <v-card v-if="card.title">
             <v-img
               :src="card.src"
               class="white--text align-end"
@@ -116,12 +117,17 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     data() {
      return {
       show: false,
+      lessorName:'',
       titles:{},
       categories:[],
       cards: [
         { title: '', src: SailBoat, flex: 12 },
         { title: '', src: oyster595, flex: 6 },
         { title: '', src: oyster432, flex: 6 },
+        { title: '', src: oyster432, flex: 6 },
+        { title: '', src: oyster432, flex: 6 },
+        { title: '', src: oyster432, flex: 6 },
+     
       ],
 
 
@@ -136,11 +142,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
             }
         ],
         mini: true,
-        services: [{
-                icon: "mdi-domain",
-                title: "Lessor",
-                link: "/createLessor"
-            },
+        services: [
             {
                 icon: "mdi-message-text",
                 title: "Category",
@@ -181,6 +183,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     },
 
   created() {
+    this.lessorName=localStorage.getItem('lessorName');
     this.getData();
  
       

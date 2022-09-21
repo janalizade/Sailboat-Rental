@@ -27,7 +27,12 @@
                               placeholder="password"
                               required
                            ></v-text-field>
-                           <v-btn type="submit" class="mt-4" color="primary" value="submit">Create</v-btn>
+
+                            <div style= "display:flex">
+                                <v-btn type="submit" color="orange"    text  value="submit">Create</v-btn>
+                                <v-btn   color="orange"  text  @click="returnCategoryPage()" > CATEGORY PAGE    </v-btn>               
+                           </div>
+                           
                       </form>
                      </v-card-text>
                   </v-card>
@@ -48,6 +53,10 @@ export default {
     };
   },
   methods: {
+    returnCategoryPage(){
+     this.$router.replace('/category');
+   },
+
     createCategory() {
     
       var myHeaders = new Headers();

@@ -150,10 +150,11 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     selectedLessor(item){
         console.log(item.title);
         const selectedItem=this.lessors.find(it=>it.name===item.title);
-        
+        localStorage.setItem('lessorName',selectedItem.name)
         localStorage.setItem('lessorId',selectedItem.id);
+
          this.$router.replace('/category');
-        console.log(localStorage.getItem('lessorId'));
+        console.log(localStorage.getItem('lessorName'));
     },
     async getData() {
     var requestOptions = {
