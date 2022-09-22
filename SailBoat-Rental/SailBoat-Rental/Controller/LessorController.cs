@@ -13,28 +13,21 @@ namespace SailBoat_Rental.Controllers
         {
             this.lessorService = lessorService;
         }
-        // GET: api/<LessorController>
+
         [HttpGet]
-        public ActionResult<List<Lessor>> Get()
+        [Produces("application/json")]
+        public ActionResult<List<Lessor>> GetAll()
         {
-            return lessorService.GetLessors();
-        }
-        
-        // GET api/<LessorController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+            return this.lessorService.GetLessors();
         }
 
-        // POST api/<LessorController>
+
         [HttpPost]
-        public ActionResult Post( Lessor lessor)
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        public ActionResult<Lessor> Create([FromBody] Lessor lessor)
         {
-            lessorService.Create(lessor);
-            return CreatedAtAction(nameof(Get), new { id = lessor.Id }, lessor);
+            return this.lessorService.Create(lessor);
         }
-
-
     }
 }

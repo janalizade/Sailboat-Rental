@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sailboat_Rental.Model;
+using SailBoat_Rental.Model;
 using SailBoat_Rental.Service;
 
 
@@ -18,20 +19,35 @@ namespace SailBoat_Rental.Controller
         }
        
         [HttpGet("lessorId/{lessorId}/")]
-        public ActionResult<List<Booking>> Get(string lessorId)
+        [Produces("application/json")]
+        public ActionResult<List<Booking>> GetBookingsByParameters(
+            string lessorId, 
+            string bookNumber,
+            string personNumber,
+            BookingStatus bookingStatus
+            )
         {
-            return bookingService.GetBookings();
+            return bookingService.GetBookings(lessorId, bookNumber, personNumber, bookingStatus);
         }
 
       
-        [HttpGet("lessorId/{lessorId}/boatId/{boatId}")]
-        public string Get(string lessorId, string boatId)
+        [HttpGet("lessorId/{lessorId}/bookingId/{bookingId}")]
+        [Produces("application/json")]
+        public ActionResult<Booking> GetBooking(
+            string lessorId, 
+            string bookingId
+            )
         {
-            return "value";
+            return bookingService.GetBooking(lessorId, bookingId);
         }
 
         [HttpPost("lessorId/{lessorId}")]
-        public ActionResult<Booking> Post(string lessorId,[FromBody] Booking booking)
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        public ActionResult<Booking> Create(
+            string lessorId,
+            [FromBody] Booking booking
+            )
         {
           return bookingService.Create(booking);
         }

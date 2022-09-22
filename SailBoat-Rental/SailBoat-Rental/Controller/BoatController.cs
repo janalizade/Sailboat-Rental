@@ -15,13 +15,15 @@ namespace SailBoat_Rental.Controller
         }
         // GET: api/<BoatController>
         [HttpGet("lessorId/{lessorId}")]
-        public ActionResult<List<Boat>> Get(string lessorId)
+        [Produces("application/json")]
+        public ActionResult<List<Boat>> GetAll(string lessorId)
         {
             return this.boatService.GetBoats();
         }
  
         [HttpGet("lessorId/{lessorId}/boatId/{boatId}")]
-        public string Get(string lessorId, string boatId)
+        [Produces("application/json")]
+        public string GetOne(string lessorId, string boatId)
         {
             Console.WriteLine("id: " + boatId);
             Console.WriteLine("lessorId: " + lessorId);
@@ -30,10 +32,9 @@ namespace SailBoat_Rental.Controller
 
         
         [HttpPost("lessorId/{lessorId}")]
-        public ActionResult Post(string lessorId,[FromBody] Boat boat)
+        public ActionResult<Boat> Post(string lessorId,[FromBody] Boat boat)
         {
-            this.boatService.Create(boat);
-            return CreatedAtAction(nameof(Get), new { id = boat.Id }, boat);
+            return this.boatService.Create(boat);
         }
     }
 }

@@ -13,19 +13,19 @@ namespace SailBoat_Rental.Service
 
         public List<Category> GetCategories(string lessorId)
         {
-            return categoryRepository.GetCategories(lessorId);
+            return this.categoryRepository.GetCategories(lessorId);
         }
 
 
         public Category GetCategory(string lessorId, string categoryId)
         {
-            return categoryRepository.GetCategory(lessorId, categoryId);
+            return this.categoryRepository.GetCategory(lessorId, categoryId);
         }
 
 
         public Category Create(Category category)
         {
-            return categoryRepository.Create(category);
+            return this.categoryRepository.Create(category);
         }
     }
 }

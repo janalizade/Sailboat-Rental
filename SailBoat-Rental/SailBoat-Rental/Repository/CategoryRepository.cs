@@ -23,7 +23,7 @@ namespace SailBoat_Rental.Repository
 
         public Category Create(Category category)
         {
-            _categories.InsertOne(category);
+            this._categories.InsertOne(category);
             return category;
         }
 
@@ -31,7 +31,7 @@ namespace SailBoat_Rental.Repository
         public List<Category> GetCategories(string lessorId)
         {
             var lessorFilter = Builders<Category>.Filter.Eq(category => category.LessorId, lessorId);
-            return _categories.Find(lessorFilter).ToList();
+            return this._categories.Find(lessorFilter).ToList();
         }
 
         public Category GetCategory(string lessorId, string categoryId)
@@ -39,7 +39,7 @@ namespace SailBoat_Rental.Repository
             var lessorFilter = Builders<Category>.Filter.Eq(category => category.LessorId, lessorId);
             var categoryFilter = Builders<Category>.Filter.Eq(category => category.CategoryId, categoryId);
             var andFilter = Builders<Category>.Filter.And(lessorFilter, categoryFilter);
-            return _categories.Find(andFilter).First();
+            return this._categories.Find(andFilter).First();
         }
     }
 }

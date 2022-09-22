@@ -15,24 +15,31 @@ namespace SailBoat_Rental.Controllers
             this.categoryService = categoryService;
         }
 
-        [Produces("application/json")]
+        
         [HttpGet("lessorId/{lessorId}/")]
+        [Produces("application/json")]
         public ActionResult<List<Category>> GetAll(string lessorId)
         {
             return categoryService.GetCategories(lessorId);
         }
 
-        [Produces("application/json")]
         [HttpGet("lessorId/{lessorId}/categoryId/{categoryId}")]
-        public ActionResult<Category> GetOne(string lessorId, string categoryId)
+        [Produces("application/json")]
+        public ActionResult<Category> GetOne(
+            string lessorId, 
+            string categoryId
+            )
         {
            return categoryService.GetCategory(lessorId, categoryId);
         }
 
+        [HttpPost("lessorId/{lessorId}")]
         [Produces("application/json")]
         [Consumes("application/json")]
-        [HttpPost("lessorId/{lessorId}")]
-        public ActionResult<Category> Create(string lessorId, [FromBody] Category category)
+        public ActionResult<Category> Create(
+            string lessorId, 
+            [FromBody] Category category
+            )
         {
             category.LessorId = lessorId;
             return categoryService.Create(category);

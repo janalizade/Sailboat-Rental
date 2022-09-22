@@ -17,6 +17,6 @@ namespace Sailboat_Rental.Model
         public string CategoryId { get; set; } = string.Empty;
 
         [BsonElement("lessorid")]
-        public string LassorId { get; set; } = string.Empty;
+        public string LessorId { get; set; } = string.Empty;
     }
 }

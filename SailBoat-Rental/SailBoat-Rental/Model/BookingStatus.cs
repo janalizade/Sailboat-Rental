@@ -2,6 +2,6 @@
 {
     public enum BookingStatus
     {
-        INPROGRESS, CANCELLED, DONE
+        UNDEFINED, INUSE, RETURENED, CANCELLED
     }
 }

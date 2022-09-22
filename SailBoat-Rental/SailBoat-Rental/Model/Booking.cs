@@ -27,13 +27,17 @@ namespace Sailboat_Rental.Model
         [BsonElement("lessorId")]
         [BsonRepresentation(BsonType.ObjectId)]
         public string LessorId { get; set; }= string.Empty;
-        
-          
+
+
+        [BsonElement("categoryId")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string CategoryId { get; set; } = string.Empty;
+
         [BsonElement("returnDate")]
         public DateTime ReturnDate {get; set; }
 
         [BsonElement("status")]
-        public BookingStatus Status { get; set; } = BookingStatus.INPROGRESS;
+        public BookingStatus Status { get; set; } = BookingStatus.INUSE;
 
 }
 }

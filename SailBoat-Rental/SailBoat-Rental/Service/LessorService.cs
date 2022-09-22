@@ -19,7 +19,7 @@ namespace SailBoat_Rental.Service
 
         public List<Lessor> GetLessors()
         {
-            return lessorRepository.GetLessors();
+            return this.lessorRepository.GetLessors();
         }
     }
 }
