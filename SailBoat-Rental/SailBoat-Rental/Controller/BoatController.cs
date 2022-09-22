@@ -4,7 +4,7 @@ using SailBoat_Rental.Service;
 
 namespace SailBoat_Rental.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class BoatController : ControllerBase
     {
@@ -14,22 +14,23 @@ namespace SailBoat_Rental.Controller
             this.boatService = boatService;
         }
         // GET: api/<BoatController>
-        [HttpGet]
-        public ActionResult<List<Boat>> Get()
+        [HttpGet("lessorId/{lessorId}")]
+        public ActionResult<List<Boat>> Get(string lessorId)
         {
             return this.boatService.GetBoats();
         }
-
-        // GET api/<BoatController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+ 
+        [HttpGet("lessorId/{lessorId}/boatId/{boatId}")]
+        public string Get(string lessorId, string boatId)
         {
+            Console.WriteLine("id: " + boatId);
+            Console.WriteLine("lessorId: " + lessorId);
             return "value";
         }
 
-        // POST api/<BoatController>
-        [HttpPost]
-        public ActionResult Post([FromBody] Boat boat)
+        
+        [HttpPost("lessorId/{lessorId}")]
+        public ActionResult Post(string lessorId,[FromBody] Boat boat)
         {
             this.boatService.Create(boat);
             return CreatedAtAction(nameof(Get), new { id = boat.Id }, boat);

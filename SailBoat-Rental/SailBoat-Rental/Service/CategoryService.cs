@@ -11,10 +11,17 @@ namespace SailBoat_Rental.Service
             this.categoryRepository = categoryRepository;
         }
 
-        public List<Category> GetCategories()
+        public List<Category> GetCategories(string lessorId)
         {
-            return categoryRepository.GetCategories();
+            return categoryRepository.GetCategories(lessorId);
         }
+
+
+        public Category GetCategory(string lessorId, string categoryId)
+        {
+            return categoryRepository.GetCategory(lessorId, categoryId);
+        }
+
 
         public Category Create(Category category)
         {

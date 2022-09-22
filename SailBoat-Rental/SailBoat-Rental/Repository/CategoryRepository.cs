@@ -28,11 +28,18 @@ namespace SailBoat_Rental.Repository
         }
 
 
-        public List<Category> GetCategories()
+        public List<Category> GetCategories(string lessorId)
         {
-            return _categories.Find(category => true).ToList();
+            var lessorFilter = Builders<Category>.Filter.Eq(category => category.LessorId, lessorId);
+            return _categories.Find(lessorFilter).ToList();
         }
 
-
+        public Category GetCategory(string lessorId, string categoryId)
+        {
+            var lessorFilter = Builders<Category>.Filter.Eq(category => category.LessorId, lessorId);
+            var categoryFilter = Builders<Category>.Filter.Eq(category => category.CategoryId, categoryId);
+            var andFilter = Builders<Category>.Filter.And(lessorFilter, categoryFilter);
+            return _categories.Find(andFilter).First();
+        }
     }
 }

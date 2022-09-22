@@ -5,9 +5,8 @@ using SailBoat_Rental.Service;
 
 namespace SailBoat_Rental.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    
     public class CategoryController : ControllerBase
     {
         private readonly CategoryService categoryService;
@@ -15,23 +14,28 @@ namespace SailBoat_Rental.Controllers
         {
             this.categoryService = categoryService;
         }
-        // GET: api/<CategoryController>
-        [HttpGet]
-        public ActionResult<List<Category>> Get()
+
+        [Produces("application/json")]
+        [HttpGet("lessorId/{lessorId}/")]
+        public ActionResult<List<Category>> GetAll(string lessorId)
         {
-            return categoryService.GetCategories();
+            return categoryService.GetCategories(lessorId);
         }
 
-
-
-        // POST api/<CategoryController>
-        [HttpPost]
-        public ActionResult Post([FromBody] Category category)
+        [Produces("application/json")]
+        [HttpGet("lessorId/{lessorId}/categoryId/{categoryId}")]
+        public ActionResult<Category> GetOne(string lessorId, string categoryId)
         {
-            categoryService.Create(category);
-            return CreatedAtAction(nameof(Get), new { id = category.CategoryId }, category);
+           return categoryService.GetCategory(lessorId, categoryId);
         }
 
-
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [HttpPost("lessorId/{lessorId}")]
+        public ActionResult<Category> Create(string lessorId, [FromBody] Category category)
+        {
+            category.LessorId = lessorId;
+            return categoryService.Create(category);
+        }
     }
 }

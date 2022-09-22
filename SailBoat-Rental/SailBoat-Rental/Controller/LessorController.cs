@@ -4,7 +4,7 @@ using SailBoat_Rental.Service;
 
 namespace SailBoat_Rental.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class LessorController : ControllerBase
     {
