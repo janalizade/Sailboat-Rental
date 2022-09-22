@@ -11,7 +11,6 @@ namespace SailBoat_Rental.Controller
     public class BookingController : ControllerBase
 
     {
-
         private readonly BookingService bookingService;
         public BookingController(BookingService bookingService)
         {
@@ -45,11 +44,21 @@ namespace SailBoat_Rental.Controller
         [Produces("application/json")]
         [Consumes("application/json")]
         public ActionResult<Booking> Create(
+             string lessorId,
+             [FromBody] Booking booking
+             )
+        {
+            return bookingService.Create(booking);
+        }
+
+        [HttpPost("lessorId/{lessorId}/bookingId/{bookingId}")]
+        public ActionResult<float> ReturnBoatAndCalculatePrice(
             string lessorId,
-            [FromBody] Booking booking
+            string bookingId
             )
         {
-          return bookingService.Create(booking);
+            return bookingService.ReturnBoatAndCalculatePrice(lessorId, bookingId);
         }
+
     }
 }

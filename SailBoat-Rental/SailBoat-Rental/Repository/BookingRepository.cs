@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Sailboat_Rental.Model;
 using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace SailBoat_Rental.Repository
 {
@@ -51,17 +52,37 @@ namespace SailBoat_Rental.Repository
 
         public Booking GetBooking(string lessorId, string bookingId)
         {
-            var lessorFilter = Builders<Booking>.Filter.Eq(booking => booking.LessorId, lessorId);
-            var bookingFilter = Builders<Booking>.Filter.Eq(booking => booking.Id, bookingId);
-            var andFilter = Builders<Booking>.Filter.And(lessorFilter, bookingFilter);
-            return _bookings.Find(andFilter).First();
+            return _bookings.Find(this.QueryByLessorIdAndBookingId(lessorId, bookingId)).First();
         }
 
+
+        private FilterDefinition<Booking> QueryByLessorIdAndBookingId(string lessorId, string bookingId)
+        {
+            var lessorFilter = Builders<Booking>.Filter.Eq(booking => booking.LessorId, lessorId);
+            var bookingFilter = Builders<Booking>.Filter.Eq(booking => booking.Id, bookingId);
+            return Builders<Booking>.Filter.And(lessorFilter, bookingFilter);
+        }
+
+
+        public void ReturnBoat(string lessorId, string bookingId)
+        {
+            var update = Builders<Booking>
+                .Update
+                .Set(booking => booking.Status, BookingStatus.RETURENED)
+                .Set(booking => booking.HandoverDate, DateTime.Now);
+            
+            var query = this.QueryByLessorIdAndBookingId(lessorId, bookingId);
+            
+            this._bookings.UpdateOne(query, update);      
+        }
         
-        public AggregatedBooking getBookingByNumber(int bookingNumber)
+        public AggregatedBooking getAggregatedBooking(string lessorId, string bookingId)
         {
             return new AggregatedBooking();
         }
+
+
+
 
     }
 }
