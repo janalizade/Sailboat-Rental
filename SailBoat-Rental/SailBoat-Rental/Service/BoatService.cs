@@ -25,7 +25,7 @@ namespace SailBoat_Rental.Service
         {
             return this.boatRepository.GetBoatByLessorId(lessorId);
         }
-        public Boat GetBoat(string lessorId,string categoryId)
+        public List<Boat> GetBoat(string lessorId,string categoryId)
         {
             return (this.boatRepository.GetBoat(lessorId, categoryId));
         }

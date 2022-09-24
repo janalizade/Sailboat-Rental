@@ -36,12 +36,12 @@ namespace SailBoat_Rental.Repository
             return _boats.Find(lessorFilter).ToList();
         }
 
-        public Boat GetBoat(string lessorId, string categoryId)
+        public List<Boat> GetBoat(string lessorId, string categoryId)
         {
             var lessorFilter = Builders<Boat>.Filter.Eq(boat => boat.LessorId, lessorId);
             var categoryFilter = Builders<Boat>.Filter.Eq(boat => boat.CategoryId, categoryId);
             var andFilter = Builders<Boat>.Filter.And(lessorFilter, categoryFilter);
-            return _boats.Find(andFilter).First();
+            return _boats.Find(andFilter).ToList();
         }
     }
 }

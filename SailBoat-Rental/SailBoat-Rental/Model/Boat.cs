@@ -7,7 +7,7 @@ namespace Sailboat_Rental.Model
         // Convert C# Datatype object to MongoDb Datatype object and vice versa 
          
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+      
         public string Id { get; set; } = string.Empty;
         
         [BsonElement("number")]

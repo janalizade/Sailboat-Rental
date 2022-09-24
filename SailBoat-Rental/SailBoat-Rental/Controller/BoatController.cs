@@ -21,18 +21,20 @@ namespace SailBoat_Rental.Controller
             return this.boatService.GetBoats();
         }
  
-        [HttpGet("lessorId/{lessorId}/boatId/{boatId}")]
+        
+
+        [HttpGet("lessorId/{lessorId}/categoryId/{categoryId}")]
         [Produces("application/json")]
-        public string GetOne(string lessorId, string boatId)
+        public ActionResult<List<Boat>> GetOne(
+           string lessorId,
+           string categoryId
+           )
         {
-            Console.WriteLine("id: " + boatId);
-            Console.WriteLine("lessorId: " + lessorId);
-            return "value";
+            return boatService.GetBoat(lessorId, categoryId);
         }
 
-        
-        [HttpPost("lessorId/{lessorId}")]
-        public ActionResult<Boat> Post(string lessorId,[FromBody] Boat boat)
+        [HttpPost("lessorId/{lessorId}/categoryId/{categoryId}")]
+        public ActionResult<Boat> Post(string lessorId, string categoryId,[FromBody] Boat boat)
         {
             return this.boatService.Create(boat);
         }

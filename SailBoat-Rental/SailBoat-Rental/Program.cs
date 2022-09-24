@@ -3,6 +3,9 @@ using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using SailBoat_Rental.Repository;
 using SailBoat_Rental.Service;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.IdGenerators;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(option => {
@@ -37,7 +40,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+BsonSerializer.RegisterIdGenerator(typeof(string), new StringObjectIdGenerator());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
