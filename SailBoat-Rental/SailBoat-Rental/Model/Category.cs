@@ -20,6 +20,12 @@ namespace Sailboat_Rental.Model
 
         [BsonElement("lessorId")]
         public string LessorId { get; set; } = string.Empty;
+
+        [BsonElement("basicFee")]
+        public double BasicFee { get; set; } 
+
+        [BsonElement("hourlyRate")]
+        public double HourlyRate { get; set; }
     }
 
   

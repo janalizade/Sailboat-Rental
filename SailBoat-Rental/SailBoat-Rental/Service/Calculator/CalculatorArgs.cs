@@ -4,12 +4,12 @@
     
     public class CalculatorArgs
     {
-        public float BasicFee { get; set; }
-        public float HourlyRate { get; set; }
+        public double BasicFee { get; set; }
+        public double HourlyRate { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
 
-        public CalculatorArgs(float basicFee, float hourlyRate, DateTime fromDate, DateTime toDate)
+        public CalculatorArgs(double basicFee, double hourlyRate, DateTime fromDate, DateTime toDate)
         {
             BasicFee = basicFee;
             HourlyRate = hourlyRate;

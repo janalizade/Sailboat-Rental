@@ -1,6 +1,7 @@
 ﻿using Sailboat_Rental.Model;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace SailBoat_Rental.Repository
 {

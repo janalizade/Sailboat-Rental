@@ -6,9 +6,9 @@
 
     public class LargeBoatCalculator : AbstractCalculator
     {
-        public override float Calculate(CalculatorArgs args)
+        public override double Calculate(CalculatorArgs args)
         {
-            return args.BasicFee * 1.5f + args.HourlyRate * 1.4f * base.getNumberOfHours(args);
+            return args.BasicFee * 1.5d + args.HourlyRate * 1.4d * base.getNumberOfHours(args);
         }
     }
 }

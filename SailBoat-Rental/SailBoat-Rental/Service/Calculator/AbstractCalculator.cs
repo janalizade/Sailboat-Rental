@@ -2,7 +2,7 @@
 {
     public abstract class AbstractCalculator
     {
-        public abstract float Calculate(CalculatorArgs args);
+        public abstract double Calculate(CalculatorArgs args);
 
 
        protected int getNumberOfHours(CalculatorArgs args)

@@ -1,6 +1,5 @@
 
 using SailBoat_Rental.Service.Calculator;
-using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 namespace Sailboat_Test
 {
@@ -13,8 +12,8 @@ namespace Sailboat_Test
             var returnDate = handOverDate.AddHours(1);
 
             AbstractCalculator smallBoatCalculator = new SmallBoatCalculator();
-            var actualPrice = smallBoatCalculator.Calculate(new CalculatorArgs(12, 40, handOverDate, returnDate));
-           NUnit.Framework.Assert.AreEqual(14.41f, actualPrice);
+            var actualPrice = smallBoatCalculator.Calculate(new CalculatorArgs(2000, 400, handOverDate, returnDate));
+           NUnit.Framework.Assert.AreEqual(2400.0d, actualPrice);
 
         }
         [Fact]

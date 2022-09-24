@@ -52,7 +52,7 @@ namespace SailBoat_Rental.Controller
         }
 
         [HttpPost("lessorId/{lessorId}/bookingId/{bookingId}")]
-        public ActionResult<float> ReturnBoatAndCalculatePrice(
+        public ActionResult<double> ReturnBoatAndCalculatePrice(
             string lessorId,
             string bookingId
             )

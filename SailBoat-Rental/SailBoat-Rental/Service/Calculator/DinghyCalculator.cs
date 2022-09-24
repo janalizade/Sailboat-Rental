@@ -4,7 +4,7 @@
     public class DinghyCalculator : AbstractCalculator
     {
       
-        public override float Calculate(CalculatorArgs args)
+        public override double Calculate(CalculatorArgs args)
         {
             return args.BasicFee + args.HourlyRate * base.getNumberOfHours(args);
         }

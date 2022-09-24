@@ -49,7 +49,7 @@ namespace SailBoat_Rental.Service
             return this.bookingRepository.GetBookings(queryParams);
         }
        
-        public float ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
+        public double ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
         {
             var aggregatedBooking = this.bookingRepository.getAggregatedBooking(lessorId, bookingId); 
             var calculatorFactory = new CalculatorFactory();
@@ -60,6 +60,7 @@ namespace SailBoat_Rental.Service
                 aggregatedBooking.HourlyRate, 
                 aggregatedBooking.HandoverDate, 
                 aggregatedBooking.ReturnDate);
+
             return calculator.Calculate(args);
         }
     }

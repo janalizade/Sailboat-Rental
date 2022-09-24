@@ -4,8 +4,9 @@ namespace SailBoat_Rental.Model
 {
     public class AggregatedBooking: Booking
     {
+        public String BoatNumber { get; set; }
         public String CategoryName { get; set; }
-        public float BasicFee { get; set; }
-        public float HourlyRate { get; set; }
+        public double BasicFee { get; set; }
+        public double HourlyRate { get; set; }
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SailBoat-Rental", "SailBoat-Rental\SailBoat-Rental.csproj", "{F37DDE8C-60DC-41DA-BECD-6926009BA698}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sailboat-Test", "Sailboat-Test\Sailboat-Test.csproj", "{71FF34A5-EE46-4342-BF97-3F81A5E7E32F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sailboat-Test", "Sailboat-Test\Sailboat-Test.csproj", "{71FF34A5-EE46-4342-BF97-3F81A5E7E32F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

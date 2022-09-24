@@ -9,6 +9,7 @@
       "Sailboat-Test/1.0.0": {
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "17.1.0",
+          "Moq": "4.18.2",
           "SailBoat-Rental": "1.0.0",
           "coverlet.collector": "3.1.2",
           "xunit": "2.4.1",
