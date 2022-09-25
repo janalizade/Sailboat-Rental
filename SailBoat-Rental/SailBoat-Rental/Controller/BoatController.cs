@@ -33,9 +33,15 @@ namespace SailBoat_Rental.Controller
             return boatService.GetBoat(lessorId, categoryId);
         }
 
+     
+
         [HttpPost("lessorId/{lessorId}/categoryId/{categoryId}")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public ActionResult<Boat> Post(string lessorId, string categoryId,[FromBody] Boat boat)
         {
+            boat.LessorId = lessorId;
+            boat.CategoryId = categoryId;
             return this.boatService.Create(boat);
         }
     }
