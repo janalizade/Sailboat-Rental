@@ -86,13 +86,29 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-
-              <v-btn icon @click="bookingPage(card.title)" >
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>          
-              <v-btn icon @click="createBoatPage()" >
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>  
+           
+                  <v-btn
+                    class="ml-2 mt-5"
+                    color="blue-grey"
+                    outlined
+                    rounded
+                    small
+                   @click="bookingPage(card.title)" 
+                  >
+                    BOOKING
+                  </v-btn>
+                
+                     <v-btn
+                    class="ml-2 mt-5"
+                    color="blue-grey"
+                    outlined
+                    rounded
+                    small
+                   @click="createBoatPage()"
+                  >
+                    Add Boat
+                  </v-btn>
+            
             </v-card-actions>
             
           </v-card>

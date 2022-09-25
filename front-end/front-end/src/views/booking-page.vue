@@ -100,7 +100,7 @@ export default {
 
    },
 
-   created(){
+   beforeCreate(){
       
       this.lessorName=localStorage.getItem('lessorName');
     

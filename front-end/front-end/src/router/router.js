@@ -8,6 +8,7 @@ import CreateLessorPage from '../views/create-lessor.vue';
 import LessorPage from '../views/Lessor-page.vue';
 import CategoryPage from '../views/category-page';
 import BookingPage from '../views/booking-page';
+import ReturnPage from '../views/return-page';
 Vue.use(VueRouter);
 
 
@@ -39,6 +40,10 @@ const routes = [
   {
     path: '/createLessor',
     component: CreateLessorPage
+  },
+  {
+    path:'/returnPage',
+    component: ReturnPage
   }
 ];
 

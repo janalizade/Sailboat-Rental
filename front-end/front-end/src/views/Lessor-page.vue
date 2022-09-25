@@ -87,6 +87,15 @@
                   >
                     START BOOKING
                   </v-btn>
+                   <v-btn
+                    class="ml-2 mt-5"
+                    outlined
+                    rounded
+                    small
+                    @click="returnPage()"
+                  >
+                    RETURN BOAT
+                  </v-btn>
                 </v-card-actions>
               </div>
 
@@ -147,6 +156,9 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     
   
   methods: {
+      returnPage(){
+     this.$router.replace('/returnPage');
+    },
     selectedLessor(item){
         console.log(item.title);
         const selectedItem=this.lessors.find(it=>it.name===item.title);
