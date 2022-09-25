@@ -69,7 +69,7 @@ export default {
             
          var lessorId=localStorage.getItem('lessorId');
          var categoryId=localStorage.getItem('categoryId');
-        console.log('new boat for the category ======>', categoryId);
+       
         fetch("https://localhost:7253/api/v1/Boat/lessorId/"+ lessorId +"/categoryId/"+ categoryId , requestOptions)
        // fetch("https://localhost:7253/api/v1/Boat/lessorId/"+localStorage.getItem('lessorId'), requestOptions)
         .then(response => response.json())

@@ -397,7 +397,7 @@
         </v-card-text>
 
         <v-card-actions class="pt-0">
-          <v-spacer />
+     
 
           <v-btn color="primary darken-1" text @click="isTransactionSucceed()">
             Yes
