@@ -8,27 +8,31 @@ namespace SailBoat_Rental.Service
     public class BookingService
     {
         private BookingRepository bookingRepository;
+        private BoatRepository boatRepository;
 
-        public BookingService(BookingRepository bookingRepository)
+        public BookingService(BookingRepository bookingRepository, BoatRepository boatRepository)
         {
             this.bookingRepository = bookingRepository;
+            this.boatRepository = boatRepository;
         }
        
-        public Booking Create(string lessorId, Booking booking)
+        public Booking BookByBoatId(string lessorId, string categoryId, string boatId, BookingRegistration bookingRegistration)
         {
-            booking.LessorId = lessorId;
+            var booking = new Booking(lessorId, categoryId, boatId, bookingRegistration.BookingNumber, bookingRegistration.PersonNumber, bookingRegistration.HandoverDate);
             return this.bookingRepository.Create(booking);
         }
+        public Booking BookByBoatNumber(string lessorId, string categoryId, string boatNumber, BookingRegistration bookingRegistration)
+        {
+            var boatId = this.boatRepository.GetBoatByNumber(lessorId, boatNumber).Id;
+            var booking = new Booking(lessorId, categoryId, boatId, bookingRegistration.BookingNumber, bookingRegistration.PersonNumber, bookingRegistration.HandoverDate);
+            return this.bookingRepository.CreateOne(booking);
+        }
+
         public Booking GetBooking(string lessorId, string bookingId)
         {
             return bookingRepository.GetBooking(lessorId, bookingId);
         }
-
-        public List<Booking> GetBookings_(string lessorId)
-        {
-            return bookingRepository.GetBookings(lessorId);
-        }
-
+        
         public List<Booking> GetBookings(string lessorId, string bookNumber, string personNumber, BookingStatus bookingStatus)
         {
             var queryParams = new Dictionary<string, string>();
@@ -50,19 +54,25 @@ namespace SailBoat_Rental.Service
             return this.bookingRepository.GetBookings(queryParams);
         }
        
-        public double ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
+        public async Task<double> ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
         {
-            var aggregatedBooking = this.bookingRepository.getAggregatedBooking(lessorId, bookingId); 
+            var aggregatedBooking = await this.bookingRepository.getAggregatedBooking(lessorId, bookingId); 
             var calculatorFactory = new CalculatorFactory();
             var calculator = calculatorFactory.GetCalculator(aggregatedBooking.CategoryName);
 
-            var args = new CalculatorArgs(
-                aggregatedBooking.BasicFee, 
-                aggregatedBooking.HourlyRate, 
-                aggregatedBooking.HandoverDate, 
-                aggregatedBooking.ReturnDate);
+            var calculatorArgs = new CalculatorArgs(aggregatedBooking.BasicFee, aggregatedBooking.HourlyRate, aggregatedBooking.HandoverDate, aggregatedBooking.ReturnDate);
 
-            return calculator.Calculate(args);
+            var price = calculator.Calculate(calculatorArgs);
+
+            this.bookingRepository.ReturnBoat(lessorId, bookingId, price);
+
+            return price;
         }
+
+        public void CancelBooking(string lessorId, string bookingId)
+        {
+            this.bookingRepository.CancelBooking(lessorId, bookingId);
+        }
+
     }
 }

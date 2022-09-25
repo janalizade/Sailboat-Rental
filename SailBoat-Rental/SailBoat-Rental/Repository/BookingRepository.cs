@@ -13,9 +13,6 @@ namespace SailBoat_Rental.Repository
     {
         private readonly IMongoCollection<Booking> _bookings;
 
-        
-
-
         public BookingRepository(IOptions<StoreSailboatDatabaseSetting> options)
         {
             var mongoClient = new MongoClient(options.Value.ConnectionString);
@@ -26,15 +23,19 @@ namespace SailBoat_Rental.Repository
 
         private async void CreateIndex()
         {
-            await _bookings.Indexes.CreateOneAsync(new CreateIndexModel<Booking>(Builders<Booking>.IndexKeys.Ascending(booking => booking.Number), new CreateIndexOptions { Unique = true }));
+            await _bookings.Indexes.CreateOneAsync(new CreateIndexModel<Booking>(Builders<Booking>.IndexKeys.Ascending(booking => booking.BookingNumber), new CreateIndexOptions { Unique = true }));
         }
         public Booking Create(Booking booking)
         {
             this._bookings.InsertOne(booking);
             return booking;
         }
-
-       private FilterDefinition<Booking> dynamicQuery(Dictionary<string, string> queryParams)
+        public Booking CreateOne(Booking booking)
+        {
+            this._bookings.InsertOne(booking);
+            return booking;
+        }
+        private FilterDefinition<Booking> dynamicQuery(Dictionary<string, string> queryParams)
         {
             var filters = new List<FilterDefinition<Booking>>();
             for (int index = 0; index < queryParams.Count; index++)
@@ -69,31 +70,42 @@ namespace SailBoat_Rental.Repository
             return Builders<Booking>.Filter.And(lessorFilter, bookingFilter);
         }
 
+        public void CancelBooking(string lessorId, string bookingId)
+        {
+            var update = Builders<Booking>
+                .Update
+                .Set(booking => booking.Status, BookingStatus.CANCELLED);
 
-        public void ReturnBoat(string lessorId, string bookingId)
+            var query = this.QueryByLessorIdAndBookingId(lessorId, bookingId);
+
+            this._bookings.UpdateOne(query, update);
+        }
+
+        public void ReturnBoat(string lessorId, string bookingId, double price)
         {
             var update = Builders<Booking>
                 .Update
                 .Set(booking => booking.Status, BookingStatus.RETURENED)
-                .Set(booking => booking.HandoverDate, DateTime.Now);
+                .Set(booking => booking.HandoverDate, DateTime.Now)
+                .Set(booking => booking.Price, price);
             
             var query = this.QueryByLessorIdAndBookingId(lessorId, bookingId);
             
             this._bookings.UpdateOne(query, update);      
         }
         
-        public AggregatedBooking getAggregatedBooking(string lessorId, string bookingId)
+        public async Task<AggregatedBooking> getAggregatedBooking(string lessorId, string bookingId)
         {
-            var pipeline=GetPipelineDefinition(lessorId, bookingId);
-            var aggResult = this._bookings.Aggregate(pipeline).First();
-            return this.Convert(aggResult);
+            var pipeline = GetPipelineDefinition(lessorId, bookingId);
+            var bsonDocument = await this._bookings.Aggregate(pipeline).FirstOrDefaultAsync();
+            return this.Convert(bsonDocument);
         }
       
 
         private AggregatedBooking Convert(BsonDocument document)
         {
             var id  = document.GetElement("_id").Value.ToString();
-            var number = document.GetElement("number").Value.ToInt64();
+            var bookingNumber = document.GetElement("bookingNumber").Value.ToString();
             var handoverDate  = ((DateTime)document.GetElement("handoverDate").Value);
             var personNumber = document.GetElement("personNumber").Value.ToString();
             var boatId = document.GetElement("boatId").Value.ToString();
@@ -109,7 +121,7 @@ namespace SailBoat_Rental.Repository
             var aggregatedBooking = new AggregatedBooking();
 
             aggregatedBooking.Id = id;
-            aggregatedBooking.Number = (int)number;
+            aggregatedBooking.BookingNumber = bookingNumber;
             aggregatedBooking.HandoverDate = handoverDate;
             aggregatedBooking.PersonNumber = personNumber;
             aggregatedBooking.BoatId = boatId;
@@ -123,11 +135,16 @@ namespace SailBoat_Rental.Repository
             aggregatedBooking.HourlyRate= hourlyRate;
             aggregatedBooking.CategoryName = categoryName;
 
-
             return aggregatedBooking;
         }
 
+
         private PipelineDefinition<Booking, BsonDocument> GetPipelineDefinition(string lessorId, string bookingId)
+        {
+            return new BsonDocument[] { };
+        }
+
+       private PipelineDefinition<Booking, BsonDocument> GetPipelineDefinition_(string lessorId, string bookingId)
         {
            return new BsonDocument[]{
     new BsonDocument("$match",
@@ -164,7 +181,7 @@ namespace SailBoat_Rental.Repository
     new BsonDocument("$project",
     new BsonDocument
         {
-            { "number", 1 },
+            { "bookingNumber", 1 },
             { "handoverDate", 1 },
             { "personNumber", 1 },
             { "boatId", 1 },

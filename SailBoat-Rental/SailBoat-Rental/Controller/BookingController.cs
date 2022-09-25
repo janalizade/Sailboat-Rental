@@ -17,7 +17,7 @@ namespace SailBoat_Rental.Controller
             this.bookingService = bookingService;
         }
        
-        [HttpGet("lessorId/{lessorId}/")]
+        [HttpGet("lessors/{lessorId}/")]
         [Produces("application/json")]
         public ActionResult<List<Booking>> GetBookingsByParameters(
             string lessorId, 
@@ -30,7 +30,7 @@ namespace SailBoat_Rental.Controller
         }
 
       
-        [HttpGet("lessorId/{lessorId}/bookingId/{bookingId}")]
+        [HttpGet("lessors/{lessorId}/bookings/{bookingId}")]
         [Produces("application/json")]
         public ActionResult<Booking> GetBooking(
             string lessorId, 
@@ -40,25 +40,45 @@ namespace SailBoat_Rental.Controller
             return bookingService.GetBooking(lessorId, bookingId);
         }
 
-        [HttpPost("lessorId/{lessorId}")]
+        
+        [HttpPost("lessors/{lessorId}/categories/{categoryId}/boats/boatNumber/{boatNumber}")]
         [Produces("application/json")]
         [Consumes("application/json")]
-        public ActionResult<Booking> Create(
-             string lessorId,
-             [FromBody] Booking booking
-             )
+        public ActionResult<Booking> BookByBoatNumber(string lessorId, string categoryId, string boatNumber, [FromBody] BookingRegistration bookingRegistration)
         {
-            return bookingService.Create(lessorId, booking);
+            return bookingService.BookByBoatNumber(lessorId, categoryId, boatNumber, bookingRegistration);
+        }
+        /**
+         * 
+         * new boat registration
+         * 
+         * **/
+        [HttpPost("lessors/{lessorId}/categories/{categoryId}/boats/{boatId}")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        public ActionResult<Booking> BookByBoatId(string lessorId, string categoryId, string boatId, [FromBody] BookingRegistration bookingRegistration)
+        {
+            return bookingService.BookByBoatId(lessorId, categoryId, boatId, bookingRegistration);
+        }
+        /**
+         * 
+         * return the boat and calculate the price
+         * 
+         * **/
+        [HttpPost("lessors/{lessorId}/bookings/{bookingId}")]
+        [Produces("text/plain")]
+        [Consumes("text/plain")]
+        public async Task<ActionResult<double>> ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
+        {
+            return await bookingService.ReturnBoatAndCalculatePrice(lessorId, bookingId);
         }
 
-        [HttpPost("lessorId/{lessorId}/bookingId/{bookingId}")]
-        public ActionResult<double> ReturnBoatAndCalculatePrice(
-            string lessorId,
-            string bookingId
-            )
+        [HttpDelete("lessors/{lessorId}/bookings/{bookingId}")]
+        public void CancelBooking(string lessorId, string bookingId)
         {
-            return bookingService.ReturnBoatAndCalculatePrice(lessorId, bookingId);
+            bookingService.CancelBooking(lessorId, bookingId);
         }
 
+        
     }
 }

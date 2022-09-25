@@ -43,5 +43,14 @@ namespace SailBoat_Rental.Repository
             var andFilter = Builders<Boat>.Filter.And(lessorFilter, categoryFilter);
             return _boats.Find(andFilter).ToList();
         }
+
+        public Boat GetBoatByNumber(string lessorId, string boatNumber)
+        {
+            var lessorFilter = Builders<Boat>.Filter.Eq(boat => boat.LessorId, lessorId);
+            var categoryFilter = Builders<Boat>.Filter.Eq(boat => boat.Number, boatNumber);
+            var andFilter = Builders<Boat>.Filter.And(lessorFilter, categoryFilter);
+            return _boats.Find(andFilter).First();
+        }
+
     }
 }

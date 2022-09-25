@@ -79,8 +79,7 @@ export default {
 var lessorId=localStorage.getItem('lessorId')
 var categoryId=localStorage.getItem('categoryId')
 
-console.log(lessorId , '' , categoryId)
-console.log("https://localhost:7253/api/v1/Boat/lessorId/"+ lessorId +"/categoryId/"+ categoryId );
+console.log('added booking ',"https://localhost:7253/api/v1/Boat/lessorId/"+ lessorId +"/categoryId/"+ categoryId );
 
 var requestOptions = {
   method: 'GET',
