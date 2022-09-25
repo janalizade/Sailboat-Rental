@@ -87,10 +87,12 @@
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn icon @click="bookingPage()" >
+              <v-btn icon @click="bookingPage(card.title)" >
                 <v-icon>mdi-heart</v-icon>
               </v-btn>          
-             
+              <v-btn icon @click="createBoatPage()" >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>  
             </v-card-actions>
             
           </v-card>
@@ -150,19 +152,30 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     },
   
   methods: {
-   bookingPage(){
+   bookingPage(x){
+    console.log(x)
+    console.log(this.categories)
+     var item=this.categories.filter(it=>(it.categoryName==x));
+    
+    console.log('^^^^^',item[0].categoryId)
+    localStorage.setItem('categoryId',item[0].categoryId);
      this.$router.replace('/booking');
   },
+
+   createBoatPage(){
+     this.$router.replace('/createBoat');
+  },
     async getData() {
+      
     var requestOptions = {
     method: 'GET',
     redirect: 'follow'
   };
 
-  fetch("https://localhost:7253/api/Category/", requestOptions)
+  fetch("https://localhost:7253/api/v1/Category/lessorId/"+localStorage.getItem('lessorId'), requestOptions)
     .then(response => response.json())
     .then(result => {
-      
+      console.log('category result',result)
       this.categories=result;       
        const titles =this.categories.map(it => it.categoryName);
        let i=0;

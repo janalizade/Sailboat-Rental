@@ -11,19 +11,10 @@
                      </v-toolbar>
                      <v-card-text>
                      <form ref="form" @submit.prevent="createLessor()">
-                           <v-space></v-space>
+                                                     
                            <v-select
-                              v-model="category"
-                              :items="categoryTitles"
-                              :error-messages="errors"
-                              label="Select Category"
-                              data-vv-name="select"
-                              required
-                           ></v-select>
-                           
-                           <v-select
-                              v-model="boat"
-                              :items="boatTitles"
+                              v-model="boats"
+                              :items="boats"
                               :error-messages="errors"
                               label="Select Boat"
                               data-vv-name="select"
@@ -66,38 +57,46 @@ export default {
       categoryTitles:[],
       lessorName: "",
       addresss: "",
+      items:{}
     };
   },
   methods: {
    returnCategoryPage(){
     this.$router.replace('/category');
+   },
+   changeCategory(){
+      
+    
+    
+   
    }
    },
    created(){
       
       this.lessorName=localStorage.getItem('lessorName');
-      var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-      };
-
-      fetch("https://localhost:7253/api/Category/", requestOptions)
-      .then(response => response.json())
-      .then(result =>{
-        this.categories=result;       
-        this.categoryTitles =this.categories.map(it => it.categoryName);
-      })
-      .catch(error => console.log('error', error));
     
+    
+var lessorId=localStorage.getItem('lessorId')
+var categoryId=localStorage.getItem('categoryId')
 
-    fetch("https://localhost:7253/api/Boat/", requestOptions)
-      .then(response => response.json())
-      .then(result =>{
-        this.boats=result;       
-        this.boatTitles =this.boats.map(it => it.number);
-      })
-      .catch(error => console.log('error', error));
-    }
+console.log(lessorId , '' , categoryId)
+console.log("https://localhost:7253/api/v1/Boat/lessorId/"+ lessorId +"/categoryId/"+ categoryId );
+
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("https://localhost:7253/api/v1/Boat/lessorId/"+ lessorId +"/categoryId/"+ categoryId , requestOptions)
+  .then(response => response.json())
+  .then(result => {
+   console.log(result)
+           this.boats = result.map(it => it.number);
+        
+  })
+  .catch(error => console.log('error', error));
+}
+    
    }
    
 </script>

@@ -14,8 +14,9 @@ namespace SailBoat_Rental.Service
             this.bookingRepository = bookingRepository;
         }
        
-        public Booking Create(Booking booking)
+        public Booking Create(string lessorId, Booking booking)
         {
+            booking.LessorId = lessorId;
             return this.bookingRepository.Create(booking);
         }
         public Booking GetBooking(string lessorId, string bookingId)

@@ -71,7 +71,7 @@ export default {
         redirect: 'follow'
         };
 
-        fetch("https://localhost:7253/api/lessor", requestOptions)
+        fetch("https://localhost:7253/api/v1/lessor", requestOptions)
         .then(response => response.json())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));

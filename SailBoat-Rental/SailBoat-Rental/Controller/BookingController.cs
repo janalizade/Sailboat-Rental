@@ -48,7 +48,7 @@ namespace SailBoat_Rental.Controller
              [FromBody] Booking booking
              )
         {
-            return bookingService.Create(booking);
+            return bookingService.Create(lessorId, booking);
         }
 
         [HttpPost("lessorId/{lessorId}/bookingId/{bookingId}")]

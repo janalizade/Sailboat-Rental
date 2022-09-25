@@ -7,7 +7,7 @@ namespace Sailboat_Rental.Model
     {
         
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+       
         public string Id { get; set; } = string.Empty;
 
         [BsonElement("number")]

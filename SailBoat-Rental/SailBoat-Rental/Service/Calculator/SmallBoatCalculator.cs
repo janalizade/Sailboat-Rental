@@ -12,9 +12,7 @@
             {
                 throw new ArgumentException("args is null");
             }
-                
-            
-            return args.BasicFee * 1.2d + args.HourlyRate * 1.3d * base.getNumberOfHours(args);
+            return (args.BasicFee * 1.2d) + (args.HourlyRate * 1.3d * base.getNumberOfHours(args));
         }
     }
 }

@@ -152,7 +152,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
         const selectedItem=this.lessors.find(it=>it.name===item.title);
         localStorage.setItem('lessorName',selectedItem.name)
         localStorage.setItem('lessorId',selectedItem.id);
-
+         console.log('lessorId',localStorage.getItem('lessorId'));
          this.$router.replace('/category');
         console.log(localStorage.getItem('lessorName'));
     },
@@ -162,7 +162,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     redirect: 'follow'
   };
 
-  fetch("https://localhost:7253/api/Lessor/", requestOptions)
+  fetch("https://localhost:7253/api/v1/Lessor/", requestOptions)
     .then(response => response.json())
     .then(result => {
        this.lessors=result;       

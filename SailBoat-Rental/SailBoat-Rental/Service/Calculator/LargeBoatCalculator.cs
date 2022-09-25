@@ -8,7 +8,11 @@
     {
         public override double Calculate(CalculatorArgs args)
         {
-            return args.BasicFee * 1.5d + args.HourlyRate * 1.4d * base.getNumberOfHours(args);
+            if (args is null)
+            {
+                throw new ArgumentException("args is null");
+            }
+            return (args.BasicFee * 1.5d) + (args.HourlyRate * 1.4d * base.getNumberOfHours(args));
         }
     }
 }

@@ -30,7 +30,7 @@ namespace SailBoat_Rental.Repository
         }
         public Booking Create(Booking booking)
         {
-            _bookings.InsertOne(booking);
+            this._bookings.InsertOne(booking);
             return booking;
         }
 
