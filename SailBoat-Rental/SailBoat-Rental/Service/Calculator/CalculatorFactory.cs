@@ -13,7 +13,7 @@
                 case "LargeBoat":
                     return new LargeBoatCalculator();
                 default:
-                    throw new ArgumentException(category + " not supported"); 
+                    throw new ArgumentException(category + " category is not supported"); 
             }
         }
     }

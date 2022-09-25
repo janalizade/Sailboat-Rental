@@ -9,11 +9,11 @@ namespace Sailboat_Test
 {
     public class CalculatorFactoryTest
     {
-        private CalculatorFactory factory = new CalculatorFactory();
-
         [Fact]
         public void CalculatorsTest()
         {
+            var factory = new CalculatorFactory();
+            
             var actualCalculator = factory.GetCalculator("Dinghy");
             NUnit.Framework.Assert.AreEqual(typeof(DinghyCalculator), actualCalculator.GetType());
 
@@ -22,6 +22,9 @@ namespace Sailboat_Test
 
             actualCalculator = factory.GetCalculator("LargeBoat");
             NUnit.Framework.Assert.AreEqual(typeof(LargeBoatCalculator), actualCalculator.GetType());
+
+            var thrown = Assert.Throws<ArgumentException>(() => factory.GetCalculator("NOT_SUPPROTED_CATEGORY"));
+            NUnit.Framework.Assert.AreEqual("NOT_SUPPROTED_CATEGORY category is not supported", thrown.Message);
         }
     }
 }
