@@ -2,10 +2,8 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Sailboat_Rental.Model;
-using System.Collections.Generic;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using System.Text.Json;
+
 
 namespace SailBoat_Rental.Repository
 {
@@ -13,10 +11,14 @@ namespace SailBoat_Rental.Repository
     {
         private readonly IMongoCollection<Booking> _bookings;
 
+        private readonly IMongoDatabase _db;
+
         public BookingRepository(IOptions<StoreSailboatDatabaseSetting> options)
         {
             var mongoClient = new MongoClient(options.Value.ConnectionString);
             _bookings = mongoClient.GetDatabase(options.Value.DatabaseName).GetCollection<Booking>("booking");
+
+            this._db = mongoClient.GetDatabase(options.Value.DatabaseName);
 
             CreateIndex();
         }
@@ -40,8 +42,8 @@ namespace SailBoat_Rental.Repository
             var filters = new List<FilterDefinition<Booking>>();
             for (int index = 0; index < queryParams.Count; index++)
             {
-              var param = queryParams.ElementAt(index);
-              filters.Add(Builders<Booking>.Filter.Eq(param.Key, param.Value));
+                var param = queryParams.ElementAt(index);
+                filters.Add(Builders<Booking>.Filter.Eq(param.Key, param.Value));
             }
             return Builders<Booking>.Filter.And(filters);
         }
@@ -70,6 +72,9 @@ namespace SailBoat_Rental.Repository
             return Builders<Booking>.Filter.And(lessorFilter, bookingFilter);
         }
 
+
+
+
         public void CancelBooking(string lessorId, string bookingId)
         {
             var update = Builders<Booking>
@@ -88,117 +93,62 @@ namespace SailBoat_Rental.Repository
                 .Set(booking => booking.Status, BookingStatus.RETURENED)
                 .Set(booking => booking.HandoverDate, DateTime.Now)
                 .Set(booking => booking.Price, price);
-            
+
             var query = this.QueryByLessorIdAndBookingId(lessorId, bookingId);
-            
-            this._bookings.UpdateOne(query, update);      
-        }
-        
-        public async Task<AggregatedBooking> getAggregatedBooking(string lessorId, string bookingId)
-        {
-            var pipeline = GetPipelineDefinition(lessorId, bookingId);
-            var bsonDocument = await this._bookings.Aggregate(pipeline).FirstOrDefaultAsync();
-            return this.Convert(bsonDocument);
-        }
-      
 
-        private AggregatedBooking Convert(BsonDocument document)
-        {
-            var id  = document.GetElement("_id").Value.ToString();
-            var bookingNumber = document.GetElement("bookingNumber").Value.ToString();
-            var handoverDate  = ((DateTime)document.GetElement("handoverDate").Value);
-            var personNumber = document.GetElement("personNumber").Value.ToString();
-            var boatId = document.GetElement("boatId").Value.ToString();
-            var lessorId = document.GetElement("lessorId").Value.ToString();
-            var categoryId = document.GetElement("categoryId").Value.ToString();
-            var returnDate = ((DateTime)document.GetElement("returnDate").Value);
-            var status = document.GetElement("status").Value.ToString();
-            var boatNumber = document.GetElement("boatNumber").Value.ToString();
-            var categoryName = document.GetElement("categoryName").Value.ToString();
-            var basicFee = document.GetElement("basicFee").Value.ToDouble();
-            var hourlyRate = document.GetElement("hourlyRate").Value.ToDouble();
-
-            var aggregatedBooking = new AggregatedBooking();
-
-            aggregatedBooking.Id = id;
-            aggregatedBooking.BookingNumber = bookingNumber;
-            aggregatedBooking.HandoverDate = handoverDate;
-            aggregatedBooking.PersonNumber = personNumber;
-            aggregatedBooking.BoatId = boatId;
-            aggregatedBooking.HourlyRate = hourlyRate;
-            aggregatedBooking.LessorId = lessorId;
-            aggregatedBooking.CategoryId = categoryId;
-            aggregatedBooking.ReturnDate = returnDate;
-            aggregatedBooking.Status = BookingStatus.INUSE;
-            aggregatedBooking.BoatNumber = boatNumber;
-            aggregatedBooking.BasicFee = basicFee;
-            aggregatedBooking.HourlyRate= hourlyRate;
-            aggregatedBooking.CategoryName = categoryName;
-
-            return aggregatedBooking;
+            this._bookings.UpdateOne(query, update);
         }
 
-
-        private PipelineDefinition<Booking, BsonDocument> GetPipelineDefinition(string lessorId, string bookingId)
+        public AggregatedBooking getAggregatedBooking(string lessorId, string bookingId)
         {
-            return new BsonDocument[] { };
+            return this._bookings
+
+                .Aggregate()
+
+                .Match(new BsonDocument("$and",
+                    new BsonArray {
+                        new BsonDocument("lessorId",
+                        new BsonDocument("$eq",
+                        new ObjectId(lessorId))),
+                        new BsonDocument("_id",
+                        new BsonDocument("$eq",
+                        new ObjectId(bookingId)))
+                    })
+                )
+
+                .Lookup(foreignCollectionName: "category",
+                        localField: "categoryId",
+                        foreignField: "_id",
+                        @as: "category")
+
+                .Unwind(field: "category")
+
+                 .Lookup(foreignCollectionName: "boat",
+                         localField: "boatId",
+                         foreignField: "_id",
+                         @as: "boat")
+
+                 .Unwind(field: "boat")
+
+                 .Project<AggregatedBooking>(new BsonDocument
+                 {
+                    { "bookingNumber", 1 },
+                    { "handoverDate", 1 },
+                    { "personNumber", 1 },
+                    { "boatId", 1 },
+                    { "lessorId", 1 },
+                    { "categoryId", 1 },
+                    { "returnDate", 1 },
+                    { "status", 1 },
+                    { "boatNumber", "$boat.number" },
+                    { "categoryName", "$category.categoryname" },
+                    { "basicFee", "$category.basicFee" },
+                    { "hourlyRate", "$category.hourlyRate" }
+                 })
+                 
+                 .SingleOrDefault();
         }
-
-       private PipelineDefinition<Booking, BsonDocument> GetPipelineDefinition_(string lessorId, string bookingId)
-        {
-           return new BsonDocument[]{
-    new BsonDocument("$match",
-    new BsonDocument("$and",
-    new BsonArray
-            {
-                new BsonDocument("lessorId",
-                new BsonDocument("$eq",
-                new ObjectId(lessorId))),
-                new BsonDocument("_id",
-                new BsonDocument("$eq",
-                new ObjectId(bookingId)))
-            })),
-    new BsonDocument("$lookup",
-    new BsonDocument
-        {
-            { "from", "category" },
-            { "localField", "categoryId" },
-            { "foreignField", "_id" },
-            { "as", "category" }
-        }),
-    new BsonDocument("$unwind",
-    new BsonDocument("path", "$category")),
-    new BsonDocument("$lookup",
-    new BsonDocument
-        {
-            { "from", "boat" },
-            { "localField", "boatId" },
-            { "foreignField", "_id" },
-            { "as", "boat" }
-        }),
-    new BsonDocument("$unwind",
-    new BsonDocument("path", "$boat")),
-    new BsonDocument("$project",
-    new BsonDocument
-        {
-            { "bookingNumber", 1 },
-            { "handoverDate", 1 },
-            { "personNumber", 1 },
-            { "boatId", 1 },
-            { "lessorId", 1 },
-            { "categoryId", 1 },
-            { "returnDate", 1 },
-            { "status", 1 },
-            { "boatNumber", "$boat.number" },
-            { "categoryName", "$category.categoryname" },
-            { "basicFee", "$category.basicFee" },
-            { "hourlyRate", "$category.hourlyRate" }
-        })
-};
-
-
-            
-        }
-
     }
+
 }
+

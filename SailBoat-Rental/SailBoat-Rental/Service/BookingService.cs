@@ -54,9 +54,9 @@ namespace SailBoat_Rental.Service
             return this.bookingRepository.GetBookings(queryParams);
         }
        
-        public async Task<double> ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
+        public AggregatedBooking ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
         {
-            var aggregatedBooking = await this.bookingRepository.getAggregatedBooking(lessorId, bookingId); 
+            var aggregatedBooking = this.bookingRepository.getAggregatedBooking(lessorId, bookingId); 
             var calculatorFactory = new CalculatorFactory();
             var calculator = calculatorFactory.GetCalculator(aggregatedBooking.CategoryName);
 
@@ -64,9 +64,11 @@ namespace SailBoat_Rental.Service
 
             var price = calculator.Calculate(calculatorArgs);
 
+            aggregatedBooking.Price = price;
+
             this.bookingRepository.ReturnBoat(lessorId, bookingId, price);
 
-            return price;
+            return aggregatedBooking;
         }
 
         public void CancelBooking(string lessorId, string bookingId)

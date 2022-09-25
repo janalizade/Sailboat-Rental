@@ -66,11 +66,10 @@ namespace SailBoat_Rental.Controller
          * 
          * **/
         [HttpPost("lessors/{lessorId}/bookings/{bookingId}")]
-        [Produces("text/plain")]
-        [Consumes("text/plain")]
-        public async Task<ActionResult<double>> ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
+        [Produces("application/json")]
+        public ActionResult<AggregatedBooking> ReturnBoatAndCalculatePrice(string lessorId, string bookingId)
         {
-            return await bookingService.ReturnBoatAndCalculatePrice(lessorId, bookingId);
+            return bookingService.ReturnBoatAndCalculatePrice(lessorId, bookingId);
         }
 
         [HttpDelete("lessors/{lessorId}/bookings/{bookingId}")]
