@@ -20,7 +20,7 @@ namespace SailBoat_Rental.Repository
 
             this._db = mongoClient.GetDatabase(options.Value.DatabaseName);
 
-            CreateIndex();
+           // CreateIndex();
         }
 
         private async void CreateIndex()
@@ -43,7 +43,17 @@ namespace SailBoat_Rental.Repository
             for (int index = 0; index < queryParams.Count; index++)
             {
                 var param = queryParams.ElementAt(index);
-                filters.Add(Builders<Booking>.Filter.Eq(param.Key, param.Value));
+                var key = param.Key;
+                var value = param.Value;
+
+                if(key.EndsWith("Id"))
+                {
+                    filters.Add(Builders<Booking>.Filter.Eq(key, new BsonObjectId(value)));
+                }
+                else
+                {
+                    filters.Add(Builders<Booking>.Filter.Eq(key, value));
+                }                 
             }
             return Builders<Booking>.Filter.And(filters);
         }

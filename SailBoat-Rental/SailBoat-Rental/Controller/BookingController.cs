@@ -19,14 +19,9 @@ namespace SailBoat_Rental.Controller
        
         [HttpGet("lessors/{lessorId}/")]
         [Produces("application/json")]
-        public ActionResult<List<Booking>> GetBookingsByParameters(
-            string lessorId, 
-            string bookNumber,
-            string personNumber,
-            BookingStatus bookingStatus
-            )
+        public ActionResult<List<Booking>> GetBookingsByParameters(string lessorId, [FromQuery] BookQueryStringModel queryString)
         {
-            return bookingService.GetBookings(lessorId, bookNumber, personNumber, bookingStatus);
+            return bookingService.GetBookings(lessorId, queryString.bookNumber, queryString.personNumber, queryString.bookingStatus);
         }
 
       

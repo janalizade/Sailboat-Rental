@@ -157,11 +157,6 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
                 icon: "mdi-message-text",
                 title: "Category",
                 link: "/createCategory"
-            },
-            {
-                icon: "mdi-message-text",
-                title: "Boat",
-                link: "/createBoat"
             }
         ]
     }
