@@ -103,13 +103,14 @@
           <v-btn
             color="primary"
             flat
-            @click="dialog = false"
+            @click="returnPage"
           >
-            I accept
+            Return
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-divider v-if="item.title" ></v-divider>
         <v-list-item-content>
           <v-list-item-title v-text="item.title"     v-if="item.title"></v-list-item-title>
         </v-list-item-content>
@@ -150,6 +151,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     
   methods: {
    returnPage(){
+    this.dialog=false;
      this.$router.replace('/');
     },
     selectedItem(item){
