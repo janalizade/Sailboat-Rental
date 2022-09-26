@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SailBoat-Rental", "SailBoat-Rental\SailBoat-Rental.csproj", "{F37DDE8C-60DC-41DA-BECD-6926009BA698}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sailboat-Test", "Sailboat-Test\Sailboat-Test.csproj", "{71FF34A5-EE46-4342-BF97-3F81A5E7E32F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F37DDE8C-60DC-41DA-BECD-6926009BA698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F37DDE8C-60DC-41DA-BECD-6926009BA698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F37DDE8C-60DC-41DA-BECD-6926009BA698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F37DDE8C-60DC-41DA-BECD-6926009BA698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71FF34A5-EE46-4342-BF97-3F81A5E7E32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71FF34A5-EE46-4342-BF97-3F81A5E7E32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71FF34A5-EE46-4342-BF97-3F81A5E7E32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71FF34A5-EE46-4342-BF97-3F81A5E7E32F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFBE0770-2012-4AB3-B983-B9B58F0688D1}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,7 @@
+variables:
+  TRIGGERED_TAG: "edsv2"
+  APP_INFRA_VERSION: "v2"
+include:
+  - project: 'deployment-and-operation/application-pipelines'
+    #    ref: develop
+    file: 'frontend-vue-ci.yml'
