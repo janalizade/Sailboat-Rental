@@ -101,7 +101,7 @@ namespace SailBoat_Rental.Repository
             var update = Builders<Booking>
                 .Update
                 .Set(booking => booking.Status, BookingStatus.RETURENED)
-                .Set(booking => booking.HandoverDate, DateTime.Now)
+                .Set(booking => booking.ReturnDate, DateTime.Now)
                 .Set(booking => booking.Price, price);
 
             var query = this.QueryByLessorIdAndBookingId(lessorId, bookingId);
@@ -111,7 +111,7 @@ namespace SailBoat_Rental.Repository
 
         public AggregatedBooking getAggregatedBooking(string lessorId, string bookingId)
         {
-            return this._bookings
+            var aggregate = this._bookings
 
                 .Aggregate()
 
@@ -154,9 +154,11 @@ namespace SailBoat_Rental.Repository
                     { "categoryName", "$category.categoryname" },
                     { "basicFee", "$category.basicFee" },
                     { "hourlyRate", "$category.hourlyRate" }
-                 })
-                 
-                 .SingleOrDefault();
+                 });
+
+            Console.WriteLine(aggregate);
+
+              return  aggregate.SingleOrDefault();
         }
     }
 
