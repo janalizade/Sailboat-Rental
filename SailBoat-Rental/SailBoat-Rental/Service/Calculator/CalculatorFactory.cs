@@ -8,9 +8,9 @@
             {
                 case "Dinghy":
                     return new DinghyCalculator();
-                case "SmallBoat":
+                case "Catamaren":
                     return new SmallBoatCalculator();
-                case "LargeBoat":
+                case "Trimaran":
                     return new LargeBoatCalculator();
                 default:
                     throw new ArgumentException(category + " category is not supported"); 

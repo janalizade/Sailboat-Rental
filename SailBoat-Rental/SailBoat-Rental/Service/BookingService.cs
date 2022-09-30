@@ -19,6 +19,7 @@ namespace SailBoat_Rental.Service
         public Booking BookByBoatId(string lessorId, string categoryId, string boatId, BookingRegistration bookingRegistration)
         {
             var booking = new Booking(lessorId, categoryId, boatId, bookingRegistration.BookingNumber, bookingRegistration.PersonNumber, bookingRegistration.HandoverDate);
+            booking.Status = BookingStatus.INUSE;
             return this.bookingRepository.Create(booking);
         }
         public Booking BookByBoatNumber(string lessorId, string categoryId, string boatNumber, BookingRegistration bookingRegistration)

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Sailboat_Rental.Model;
 using MongoDB.Bson;
-
+using MongoDB.Driver.Linq;
 
 namespace SailBoat_Rental.Repository
 {
@@ -72,6 +72,18 @@ namespace SailBoat_Rental.Repository
         public Booking GetBooking(string lessorId, string bookingId)
         {
             return _bookings.Find(this.QueryByLessorIdAndBookingId(lessorId, bookingId)).First();
+        }
+
+
+        public Booking GetBookingLinque(string lessorId, string bookingId)
+        {
+            IMongoQueryable<Booking> results =
+                        from booking in _bookings.AsQueryable()
+                        where 
+                        booking.LessorId == lessorId && 
+                        booking.Id == bookingId 
+                        select booking;
+            return results.First();
         }
 
 
