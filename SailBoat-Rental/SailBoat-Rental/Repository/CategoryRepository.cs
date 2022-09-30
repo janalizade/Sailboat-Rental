@@ -18,7 +18,7 @@ namespace SailBoat_Rental.Repository
 
         private async void CreateIndex()
         {
-            await _categories.Indexes.CreateOneAsync(new CreateIndexModel<Category>(Builders<Category>.IndexKeys.Ascending(category => category.CategoryName), new CreateIndexOptions { Unique = true }));
+            await _categories.Indexes.CreateOneAsync(new CreateIndexModel<Category>(Builders<Category>.IndexKeys.Ascending(category => category.LessorId).Ascending(category => category.CategoryName), new CreateIndexOptions { Unique = true }));
         }
 
         public Category Create(Category category)

@@ -188,7 +188,7 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
              const titles =this.result.map(it => it.personNumber);
              const handoverDate =this.result.map(it => it.handoverDate);
              const bookingId =this.result.map(it => it.id);
-   
+             console.log(this.result)
                let i=0;
               this.items.forEach(it=>{
                 it.title=titles[i];

@@ -92,7 +92,7 @@
                     outlined
                     rounded
                     small
-                    @click="returnPage()"
+                    @click="returnPage(item, $event)"
                   >
                     RETURN BOAT
                   </v-btn>
@@ -156,7 +156,11 @@ import oyster432 from '../../src/assets/img/Oyster-Yachts1.webp';
     
   
   methods: {
-      returnPage(){
+      returnPage(item){
+      const selectedItem=this.lessors.find(it=>it.name===item.title);
+      localStorage.setItem('lessorName',selectedItem.name)
+      localStorage.setItem('lessorId',selectedItem.id);
+      console.log('lessorId',localStorage.getItem('lessorId'));
      this.$router.replace('/returnPage');
     },
     selectedLessor(item){
